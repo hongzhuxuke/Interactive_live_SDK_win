@@ -1,0 +1,44 @@
+#ifndef VHALL_MESSAGE_TYPE_H
+#define VHALL_MESSAGE_TYPE_H
+
+#include <windows.h>
+
+typedef enum {
+  GET_USER_MEDIA = WM_USER + 100,
+  CREATE_OFFER,
+  PROCESS_ANSWER,
+  PLAY_STREAM,
+  STOP_STREAM,
+  CLOSE_STREAM,
+  GETSTATS,
+  RECEIVESTREAM,
+  MUTESTREAM,
+  GETSTREAMSTATS,
+  INITPEERCONNECTION,
+  DEINITPEERCONNECTION,
+  CREATEOFFERSUCCESS,
+  CREATEOFFERFAILED,
+  SETANSWERSUCCESS,
+  SETAUDIOPLAYOUTDEVICE,
+  SETAUDIOINDEVICE,
+  SET_AUDIO_OUTPUT,
+  GETBWE,
+  GETSENDVIDEOSSRC,
+  GETSENDAUDIOSSRC,
+  GETRECVIDEOSSRC,
+  GETRECAUDIOSSRC,
+  IceGatheringComplete,
+  IceConnectionFailed,
+  IceConnectionCompleted,
+  MsgCreateSDPFail,
+  SetLocalDescriptionFailed,
+  SetAnswerFailed,
+  MsgSetAudioInVolume,
+  MsgSetAudioOutVolume,
+  MsgRequestSnapShot,
+  MsgUpdateRect,
+  MsgResetCap,
+  MsgVideoFilterParam,
+} E_BASE_TASK;
+
+#endif /* VHALL_MESSAGE_TYPE_H */

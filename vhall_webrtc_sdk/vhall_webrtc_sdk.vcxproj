@@ -1,0 +1,381 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="3rdparty\lib_json\json.h" />
+    <ClInclude Include="3rdparty\lib_json\json_batchallocator.h" />
+    <ClInclude Include="3rdparty\lib_json\json_tool.h" />
+    <ClInclude Include="3rdparty\media_reader\BufferQueue.h" />
+    <ClInclude Include="3rdparty\media_reader\IMediaOutput.h" />
+    <ClInclude Include="3rdparty\media_reader\IMediaReader.h" />
+    <ClInclude Include="3rdparty\media_reader\Logging.h" />
+    <ClInclude Include="3rdparty\media_reader\MediaReader.h" />
+    <ClInclude Include="3rdparty\media_reader\stdafx.h" />
+    <ClInclude Include="3rdparty\media_reader\targetver.h" />
+    <ClInclude Include="3rdparty\vhall_voice_change\AudioBuffer.h" />
+    <ClInclude Include="3rdparty\vhall_voice_change\VoiceChange.h" />
+    <ClInclude Include="3rdparty\VHGPUImage\log.h" />
+    <ClInclude Include="3rdparty\VHGPUImage\VHBeautifyFilter.h" />
+    <ClInclude Include="3rdparty\VHGPUImage\VHBeautifyRender.h" />
+    <ClInclude Include="3rdparty\VHGPUImage\VHGPUImageBrightnessFilter.h" />
+    <ClInclude Include="3rdparty\VHGPUImage\VHGPUImageFilter.h" />
+    <ClInclude Include="3rdparty\VHGPUImage\VHOpenGLUtil.h" />
+    <ClInclude Include="3rdparty\VHGPUImage\VHRunnable.h" />
+    <ClInclude Include="3rdparty\VHGPUImage\VHShaderUtil.h" />
+    <ClInclude Include="3rdparty\VHGPUImage\wglContext\VHGLContext.h" />
+    <ClInclude Include="3rdparty\VHGPUImage\wglContext\VHOpenGLBase.h" />
+    <ClInclude Include="3rdparty\video_process\src\ImageEnhance.h" />
+    <ClInclude Include="common\arithmetic.h" />
+    <ClInclude Include="common\base64.h" />
+    <ClInclude Include="common\data_combine_split.h" />
+    <ClInclude Include="common\live_sys.h" />
+    <ClInclude Include="common\message_type.h" />
+    <ClInclude Include="common\sdp_helpers.h" />
+    <ClInclude Include="common\urlParse.h" />
+    <ClInclude Include="common\vhall_define.h" />
+    <ClInclude Include="common\vhall_log.h" />
+    <ClInclude Include="common\vhall_thread.h" />
+    <ClInclude Include="common\vhall_timer.h" />
+    <ClInclude Include="common\vhall_utility.h" />
+    <ClInclude Include="common\video_profile.h" />
+    <ClInclude Include="signalling\BaseStack\statsInfo.h" />
+    <ClInclude Include="signalling\event\BroadCastEvents.h" />
+    <ClInclude Include="signalling\tool\DeviceObtain.h" />
+    <ClInclude Include="signalling\vh_uplog_define.h" />
+    <ClInclude Include="VHCapture\vhall_audio_capture\AudioCaptureMix.h" />
+    <ClInclude Include="VHCapture\vhall_audio_capture\AudioDeviceNotify.h" />
+    <ClInclude Include="VHCapture\vhall_audio_capture\AudioLoopBackRecording.h" />
+    <ClInclude Include="VHCapture\vhall_audio_capture\DShowAudioCapture.h" />
+    <ClInclude Include="VHCapture\vhall_audio_capture\VhallAudioMixing.h" />
+    <ClInclude Include="signalling\BaseStack\AdmConfig.h" />
+    <ClInclude Include="signalling\BaseStack\audioExport.h" />
+    <ClInclude Include="signalling\BaseStack\BaseStack.h" />
+    <ClInclude Include="signalling\BaseStack\CreateOfferObserver.h" />
+    <ClInclude Include="signalling\BaseStack\CreatePeerConnectionObserver.h" />
+    <ClInclude Include="signalling\BaseStack\GetStatsObserver.h" />
+    <ClInclude Include="signalling\BaseStack\SetAnswerObserver.h" />
+    <ClInclude Include="signalling\BaseStack\SetLocalDescriptionObserver.h" />
+    <ClInclude Include="signalling\BaseStack\Snapshot.h" />
+    <ClInclude Include="signalling\BaseStack\UpStats.h" />
+    <ClInclude Include="signalling\BaseStack\SnapShotCallBack.h" />
+    <ClInclude Include="signalling\BaseStack\VideoRenderer.h" />
+    <ClInclude Include="signalling\BaseStack\BaseAudioDeviceModule.h" />
+    <ClInclude Include="signalling\tool\AudioDataFromCapture.h" />
+    <ClInclude Include="signalling\tool\AudioSendFrame.h" />
+    <ClInclude Include="signalling\tool\AudioPlayDataReader.h" />
+    <ClInclude Include="signalling\tool\AudioPlayDeviceModule.h" />
+    <ClInclude Include="signalling\tool\audio_device_detect.h" />
+    <ClInclude Include="signalling\tool\JpegEncode.h" />
+    <ClInclude Include="signalling\tool\platformInfo.h" />
+    <ClInclude Include="signalling\tool\vhall_dev_format.h" />
+    <ClInclude Include="signalling\tool\vhall_monitor.h" />
+    <ClInclude Include="signalling\tool\VideoRenderReceiver.h" />
+    <ClInclude Include="signalling\transporter\message_wrapper.h" />
+    <ClInclude Include="signalling\transporter\socketio_transport.h" />
+    <ClInclude Include="signalling\transporter\transport.h" />
+    <ClInclude Include="signalling\vh_connection.h" />
+    <ClInclude Include="signalling\vh_data_message.h" />
+    <ClInclude Include="signalling\vh_events.h" />
+    <ClInclude Include="signalling\vh_room.h" />
+    <ClInclude Include="signalling\vh_signaling_channel.h" />
+    <ClInclude Include="signalling\vh_stream.h" />
+    <ClInclude Include="signalling\vh_tools.h" />
+    <ClInclude Include="signalling\vh_uplog.h" />
+    <ClInclude Include="VHCapture\audio_device_custom.h" />
+    <ClInclude Include="VHCapture\vhall_video_capture\desktop_capture_impl.h" />
+    <ClInclude Include="VHCapture\file_audio_device.h" />
+    <ClInclude Include="VHCapture\vhall_video_capture\file_video_capture_impl.h" />
+    <ClInclude Include="VHCapture\vhall_video_capture\picture_capture_impl.h" />
+    <ClInclude Include="VHCapture\vhall_video_capture\VhallRectUtil.h" />
+    <ClInclude Include="VHCapture\vhall_video_capture\VhallVideoCapture.h" />
+    <ClInclude Include="VHCapture\vhall_audio_device\vh_audio_device_core_win.h" />
+    <ClInclude Include="VHCapture\vhall_audio_device\vh_audio_device_impl.h" />
+    <ClInclude Include="VHCapture\vhall_video_capture\vhall_vcm_capturer.h" />
+    <ClInclude Include="VHCapture\vhall_video_capture\vhall_video_capturer.h" />
+    <ClInclude Include="VHCapture\vhall_video_capture\video_process_filter.h" />
+    <ClInclude Include="VHCapture\video_capture_dshow\sink_filter_ds.h" />
+    <ClInclude Include="VHCapture\video_capture_dshow\video_capture_ds.h" />
+    <ClInclude Include="VHCapture\video_capture_dshow\video_capture_impl.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="3rdparty\lib_json\json.cc" />
+    <ClCompile Include="3rdparty\lib_json\json_reader.cpp" />
+    <ClCompile Include="3rdparty\lib_json\json_value.cpp" />
+    <ClCompile Include="3rdparty\lib_json\json_writer.cpp" />
+    <ClCompile Include="3rdparty\media_reader\BufferQueue.cpp" />
+    <ClCompile Include="3rdparty\media_reader\dllmain.cpp" />
+    <ClCompile Include="3rdparty\media_reader\Logging.cpp" />
+    <ClCompile Include="3rdparty\media_reader\MediaReader.cpp" />
+    <ClCompile Include="3rdparty\media_reader\stdafx.cpp" />
+    <ClCompile Include="3rdparty\vhall_voice_change\AudioBuffer.cpp" />
+    <ClCompile Include="3rdparty\vhall_voice_change\VoiceChange.cpp" />
+    <ClCompile Include="3rdparty\VHGPUImage\VHBeautifyFilter.cpp" />
+    <ClCompile Include="3rdparty\VHGPUImage\VHBeautifyRender.cpp" />
+    <ClCompile Include="3rdparty\VHGPUImage\VHGPUImageBrightnessFilter.cpp" />
+    <ClCompile Include="3rdparty\VHGPUImage\VHGPUImageFilter.cpp" />
+    <ClCompile Include="3rdparty\VHGPUImage\VHRunnable.cpp" />
+    <ClCompile Include="3rdparty\VHGPUImage\VHShaderUtil.cpp" />
+    <ClCompile Include="3rdparty\VHGPUImage\wglContext\VHGLContext.cpp" />
+    <ClCompile Include="3rdparty\VHGPUImage\wglContext\VHOpenGLBase.cpp" />
+    <ClCompile Include="3rdparty\video_process\src\ImageEnhance.cpp" />
+    <ClCompile Include="common\arith_base64.c" />
+    <ClCompile Include="common\base64.cc" />
+    <ClCompile Include="common\data_combine_split.cpp" />
+    <ClCompile Include="common\live_sys.cpp" />
+    <ClCompile Include="common\sdp_helpers.cpp" />
+    <ClCompile Include="common\urlParse.cpp" />
+    <ClCompile Include="common\vhall_define.cpp" />
+    <ClCompile Include="common\vhall_log.cpp" />
+    <ClCompile Include="common\vhall_utility.cpp" />
+    <ClCompile Include="common\video_profile.cpp" />
+    <ClCompile Include="signalling\event\BroadCastEvents.cpp" />
+    <ClCompile Include="signalling\tool\DeviceObtain.cpp" />
+    <ClCompile Include="VHCapture\vhall_audio_capture\AudioCaptureMix.cpp" />
+    <ClCompile Include="VHCapture\vhall_audio_capture\AudioDeviceNotify.cpp" />
+    <ClCompile Include="VHCapture\vhall_audio_capture\AudioLoopBackRecording.cpp" />
+    <ClCompile Include="VHCapture\vhall_audio_capture\DShowAudioCapture.cpp" />
+    <ClCompile Include="VHCapture\vhall_audio_capture\VhallAudioMixing.cpp" />
+    <ClCompile Include="signalling\BaseStack\AdmConfig.cpp" />
+    <ClCompile Include="signalling\BaseStack\audioExport.cpp" />
+    <ClCompile Include="signalling\BaseStack\BaseAudioDeviceModule.cpp" />
+    <ClCompile Include="signalling\BaseStack\BaseStack.cpp" />
+    <ClCompile Include="signalling\BaseStack\CreateOfferObserver.cpp" />
+    <ClCompile Include="signalling\BaseStack\CreatePeerConnectionObserver.cpp" />
+    <ClCompile Include="signalling\BaseStack\GetStatsObserver.cpp" />
+    <ClCompile Include="signalling\BaseStack\UpStats.cpp" />
+    <ClCompile Include="signalling\tool\AudioDataFromCapture.cpp" />
+    <ClCompile Include="signalling\tool\AudioPlayDataReader.cpp" />
+    <ClCompile Include="signalling\tool\AudioPlayDeviceModule.cpp" />
+    <ClCompile Include="signalling\tool\JpegEncode.cpp" />
+    <ClCompile Include="signalling\BaseStack\SetAnswerObserver.cpp" />
+    <ClCompile Include="signalling\BaseStack\SetLocalDescriptionObserver.cpp" />
+    <ClCompile Include="signalling\BaseStack\Snapshot.cpp" />
+    <ClCompile Include="signalling\BaseStack\VideoRenderer.cpp" />
+    <ClCompile Include="signalling\tool\audio_device_detect.cpp" />
+    <ClCompile Include="signalling\tool\platformInfo.cpp" />
+    <ClCompile Include="signalling\tool\vhall_monitor.cpp" />
+    <ClCompile Include="signalling\transporter\message_wrapper.cpp" />
+    <ClCompile Include="signalling\transporter\socketio_transport.cpp" />
+    <ClCompile Include="signalling\vh_connection.cpp" />
+    <ClCompile Include="signalling\vh_data_message.cpp" />
+    <ClCompile Include="signalling\vh_events.cpp" />
+    <ClCompile Include="signalling\vh_room.cpp" />
+    <ClCompile Include="signalling\vh_signaling_channel.cpp" />
+    <ClCompile Include="signalling\vh_stream.cpp" />
+    <ClCompile Include="signalling\vh_tools.cpp" />
+    <ClCompile Include="signalling\vh_uplog.cpp" />
+    <ClCompile Include="VHCapture\audio_device_custom.cc" />
+    <ClCompile Include="VHCapture\vhall_video_capture\desktop_capture_impl.cpp" />
+    <ClCompile Include="VHCapture\file_audio_device.cc" />
+    <ClCompile Include="VHCapture\vhall_video_capture\file_video_capture_impl.cpp" />
+    <ClCompile Include="VHCapture\vhall_video_capture\picture_capture_impl.cpp" />
+    <ClCompile Include="VHCapture\vhall_video_capture\VhallVideoCapture.cpp" />
+    <ClCompile Include="VHCapture\vhall_audio_device\vh_audio_device_core_win.cc" />
+    <ClCompile Include="VHCapture\vhall_audio_device\vh_audio_device_impl.cc" />
+    <ClCompile Include="VHCapture\vhall_video_capture\vhall_vcm_capturer.cc" />
+    <ClCompile Include="VHCapture\vhall_video_capture\vhall_video_capturer.cc" />
+    <ClCompile Include="VHCapture\vhall_video_capture\video_process_filter.cpp" />
+    <ClCompile Include="VHCapture\video_capture_dshow\sink_filter_ds.cc" />
+    <ClCompile Include="VHCapture\video_capture_dshow\video_capture_ds.cc" />
+    <ClCompile Include="VHCapture\video_capture_dshow\video_capture_impl.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source.def" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{7326DB85-E7BC-4620-A49E-E93630E6D573}</ProjectGuid>
+    <RootNamespace>vhall_webrtc_sdk</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>llvm</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>llvm</PlatformToolset>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>false</ConformanceMode>
+      <PreprocessorDefinitions>WIN32;DEBUG;_CONSOLE;VHALL_WIN;V8_DEPRECATION_WARNINGS;USE_AURA=1;NO_TCMALLOC;FULL_SAFE_BROWSING;SAFE_BROWSING_CSD;SAFE_BROWSING_DB_LOCAL;CHROMIUM_BUILD;FIELDTRIAL_TESTING_ENABLED;"CR_CLANG_REVISION=\"325667-1\"";_HAS_EXCEPTIONS=0;__STD_C;_CRT_RAND_S;_CRT_SECURE_NO_DEPRECATE;__STDC_CONSTANT_MACROS;_SCL_SECURE_NO_DEPRECATE;DEPRECATEDENUMERATOR(x)=[[deprecated(x)]];_ATL_NO_OPENGL;_WINDOWS;CERT_CHAIN_PARA_HAS_EXTRA_FIELDS;PSAPI_VERSION=1;_SECURE_ATL;_USING_V110_SDK71_;WIN32_LEAN_AND_MEAN;NOMINMAX;_UNICODE;UNICODE;NTDDI_VERSION=0x0A000000;_WIN32_WINNT=0x0A00;WINVER=0x0A00;DYNAMIC_ANNOTATIONS_ENABLED=1;WTF_USE_DYNAMIC_ANNOTATIONS=1;WEBRTC_ENABLE_PROTOBUF=1;WEBRTC_INCLUDE_INTERNAL_AUDIO_DEVICE;HAVE_SCTP;USE_BUILTIN_SW_CODECS;WEBRTC_NON_STATIC_TRACE_EVENT_HANDLERS=1;WEBRTC_WIN;_CRT_SECURE_NO_WARNINGS;HAVE_WEBRTC_VIDEO;HAVE_WEBRTC_VOICE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)3rdparty\VHGPUImage\include;$(ProjectDir)3rdparty\vhall_live_core\vhall_media_core\3rdparty\libjingle;$(ProjectDir)3rdparty\common\Utility;$(ProjectDir)3rdparty\vhall_live_core\vhall_media_core\3rdparty\audiomixing;$(ProjectDir)3rdparty\vhall_live_core\libdshowcapture;$(ProjectDir)3rdparty\vhall_live_core\AudioEngine;$(ProjectDir)3rdparty\vhall_live_core\vhall_media_core\common;$(ProjectDir)3rdparty\vhall_live_core\VHMonitorCapture;$(ProjectDir)3rdparty\vhall_live_core\libsamplerate;$(ProjectDir)3rdparty\vhall_live_core\libdshowcapture\source;$(ProjectDir)3rdparty\vhall_live_core\DecklinkDevice;$(ProjectDir)3rdparty\common\baseclass;$(ProjectDir)3rdparty\common\interface;$(ProjectDir)3rdparty\common\message;$(ProjectDir)3rdparty\common\def;$(ProjectDir)3rdparty\common;$(ProjectDir)3rdparty\vhall_live_core\DShowPlugin;$(ProjectDir)3rdparty\boost_1_66_0;$(ProjectDir)3rdparty\vhall_webrtc_include\vhall_webrtc_include\third_party\libjpeg_turbo;$(ProjectDir)3rdparty\vhall_webrtc_include;$(ProjectDir);$(ProjectDir)3rdparty;$(ProjectDir)3rdparty\socketio\lib\rapidjson;$(ProjectDir)3rdparty\socketio\lib\websocketpp;$(ProjectDir)3rdparty\directx\include;$(ProjectDir)3rdparty\media_reader\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <PrecompiledHeaderFile />
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>Source.def</ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>$(ProjectDir)3rdparty\VHGPUImage\lib;$(SolutionDir)$(Configuration)\;$(SolutionDir)VhallLiveSDKDemo\Debug\;$(ProjectDir)libs\x86;$(ProjectDir)3rdparty\boost_1_66_0\stage\lib\x86\debug_MDd;$(ProjectDir)3rdparty\directx\lib\x86\;$(ProjectDir)3rdparty\media_reader\lib\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;glew32s.lib;freeglut.lib;webrtc_debug.lib;sioclient_debug.lib;audio_mixing.lib;libjingle.lib;vhall_ns_process.lib;Vhallobsapi.lib;Avrt.lib;libsamplerate.lib;VhallAudioEngine.lib;Vhalldshowcapture.lib;VhallDecklinkDevice.lib;VhallOBS.lib;VhallOBSApi.lib;VhallDShowPlugin.lib;winmm.lib;Strmiids.lib;Secur32.lib;Msdmo.lib;Dmoguids.lib;wmcodecdspuuid.lib;winhttp.lib;libboost_atomic-vc141-mt-gd-x32-1_66.lib;libboost_chrono-vc141-mt-gd-x32-1_66.lib;libboost_container-vc141-mt-gd-x32-1_66.lib;libboost_context-vc141-mt-gd-x32-1_66.lib;libboost_coroutine-vc141-mt-gd-x32-1_66.lib;libboost_date_time-vc141-mt-gd-x32-1_66.lib;libboost_exception-vc141-mt-gd-x32-1_66.lib;libboost_fiber-vc141-mt-gd-x32-1_66.lib;libboost_filesystem-vc141-mt-gd-x32-1_66.lib;libboost_graph-vc141-mt-gd-x32-1_66.lib;libboost_iostreams-vc141-mt-gd-x32-1_66.lib;libboost_locale-vc141-mt-gd-x32-1_66.lib;libboost_log_setup-vc141-mt-gd-x32-1_66.lib;libboost_log-vc141-mt-gd-x32-1_66.lib;libboost_math_c99f-vc141-mt-gd-x32-1_66.lib;libboost_math_c99l-vc141-mt-gd-x32-1_66.lib;libboost_math_c99-vc141-mt-gd-x32-1_66.lib;libboost_math_tr1f-vc141-mt-gd-x32-1_66.lib;libboost_math_tr1l-vc141-mt-gd-x32-1_66.lib;libboost_math_tr1-vc141-mt-gd-x32-1_66.lib;libboost_prg_exec_monitor-vc141-mt-gd-x32-1_66.lib;libboost_program_options-vc141-mt-gd-x32-1_66.lib;libboost_python-vc141-mt-gd-x32-1_66.lib;libboost_random-vc141-mt-gd-x32-1_66.lib;libboost_regex-vc141-mt-gd-x32-1_66.lib;libboost_serialization-vc141-mt-gd-x32-1_66.lib;libboost_signals-vc141-mt-gd-x32-1_66.lib;libboost_stacktrace_noop-vc141-mt-gd-x32-1_66.lib;libboost_stacktrace_windbg_cached-vc141-mt-gd-x32-1_66.lib;libboost_stacktrace_windbg-vc141-mt-gd-x32-1_66.lib;libboost_system-vc141-mt-gd-x32-1_66.lib;libboost_test_exec_monitor-vc141-mt-gd-x32-1_66.lib;libboost_thread-vc141-mt-gd-x32-1_66.lib;libboost_timer-vc141-mt-gd-x32-1_66.lib;libboost_type_erasure-vc141-mt-gd-x32-1_66.lib;libboost_unit_test_framework-vc141-mt-gd-x32-1_66.lib;libboost_wave-vc141-mt-gd-x32-1_66.lib;libboost_wserialization-vc141-mt-gd-x32-1_66.lib;d3d11.lib;dxgi.lib;libvlc.lib;libvlccore.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapExports>true</MapExports>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>DEBUG;_CONSOLE;VHALL_WIN;V8_DEPRECATION_WARNINGS;USE_AURA=1;NO_TCMALLOC;FULL_SAFE_BROWSING;SAFE_BROWSING_CSD;SAFE_BROWSING_DB_LOCAL;CHROMIUM_BUILD;FIELDTRIAL_TESTING_ENABLED;"CR_CLANG_REVISION=\"325667-1\"";_HAS_EXCEPTIONS=0;__STD_C;_CRT_RAND_S;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;DEPRECATEDENUMERATOR(x)=[[deprecated(x)]];_ATL_NO_OPENGL;_WINDOWS;CERT_CHAIN_PARA_HAS_EXTRA_FIELDS;PSAPI_VERSION=1;WIN32;_SECURE_ATL;_USING_V110_SDK71_;WIN32_LEAN_AND_MEAN;NOMINMAX;_UNICODE;UNICODE;NTDDI_VERSION=0x0A000000;_WIN32_WINNT=0x0A00;WINVER=0x0A00;_DEBUG;DYNAMIC_ANNOTATIONS_ENABLED=1;WTF_USE_DYNAMIC_ANNOTATIONS=1;WEBRTC_ENABLE_PROTOBUF=1;WEBRTC_INCLUDE_INTERNAL_AUDIO_DEVICE;HAVE_SCTP;USE_BUILTIN_SW_CODECS;WEBRTC_NON_STATIC_TRACE_EVENT_HANDLERS=1;WEBRTC_WIN;_CRT_SECURE_NO_WARNINGS;HAVE_WEBRTC_VIDEO;HAVE_WEBRTC_VOICE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)3rdparty\vhall_webrtc_include;$(ProjectDir)3rdparty\vhall_live_core\vhall_media_core\3rdparty\libjingle;$(ProjectDir)3rdparty\VHGPUImage\include;$(ProjectDir)3rdparty\vhall_live_core\DShowPlugin;$(ProjectDir)3rdparty\common;$(ProjectDir)3rdparty\common\def;$(ProjectDir)3rdparty\common\message;$(ProjectDir)3rdparty\common\interface;$(ProjectDir)3rdparty\common\baseclass;$(ProjectDir)3rdparty\vhall_live_core\DecklinkDevice;$(ProjectDir)3rdparty\vhall_live_core\libdshowcapture\source;$(ProjectDir)3rdparty\vhall_live_core\libsamplerate;$(ProjectDir)3rdparty\vhall_live_core\VHMonitorCapture;$(ProjectDir)3rdparty\vhall_live_core\vhall_media_core\common;$(ProjectDir)3rdparty\vhall_live_core\AudioEngine;$(ProjectDir)3rdparty\vhall_live_core\libdshowcapture;$(ProjectDir)3rdparty\vhall_live_core\vhall_media_core\3rdparty\audiomixing;$(ProjectDir)3rdparty\common\Utility;$(ProjectDir)\3rdparty\boost_1_66_0;$(ProjectDir)3rdparty\vhall_webrtc_include\third_party\ffmpeg\chromium\config\Chromium\win\x64;$(ProjectDir)3rdparty\vhall_webrtc_include\third_party\ffmpeg;$(ProjectDir)3rdparty\vhall_webrtc_include\third_party\abseil-cpp\;$(ProjectDir)\3rdparty\vhall_webrtc_include;$(ProjectDir);$(ProjectDir)3rdparty;$(ProjectDir)3rdparty\socketio\lib\rapidjson\include;$(ProjectDir)3rdparty\socketio\lib\websocketpp;$(ProjectDir)3rdparty\directx\include\;$(ProjectDir)3rdparty\media_reader\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMPSupport>false</OpenMPSupport>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>vhall_ns_process.lib;libvlc.lib;libvlccore.lib;webrtc_debug_x64.lib;sioclient_debug.lib;glew64d.lib;freeglut_$(PlatformName)_$(Configuration).lib;Vhallaudio_mixing.lib;Vhallobsapi.lib;Avrt.lib;Vhalllibsamplerate.lib;VhallAudioEngine.lib;Vhalldshowcapture.lib;VhallDecklinkDevice.lib;VhallOBS.lib;VhallOBSApi.lib;VhallDShowPlugin.lib;IPHLPAPI.lib;winmm.lib;Strmiids.lib;Secur32.lib;Msdmo.lib;Dmoguids.lib;wmcodecdspuuid.lib;winhttp.lib;VhallNetWork.lib;libboost_atomic-vc141-mt-gd-x64-1_66.lib;libboost_chrono-vc141-mt-gd-x64-1_66.lib;libboost_container-vc141-mt-gd-x64-1_66.lib;libboost_context-vc141-mt-gd-x64-1_66.lib;libboost_coroutine-vc141-mt-gd-x64-1_66.lib;libboost_date_time-vc141-mt-gd-x64-1_66.lib;libboost_exception-vc141-mt-gd-x64-1_66.lib;libboost_fiber-vc141-mt-gd-x64-1_66.lib;libboost_filesystem-vc141-mt-gd-x64-1_66.lib;libboost_graph-vc141-mt-gd-x64-1_66.lib;libboost_iostreams-vc141-mt-gd-x64-1_66.lib;libboost_locale-vc141-mt-gd-x64-1_66.lib;libboost_log_setup-vc141-mt-gd-x64-1_66.lib;libboost_log-vc141-mt-gd-x64-1_66.lib;libboost_math_c99f-vc141-mt-gd-x64-1_66.lib;libboost_math_c99l-vc141-mt-gd-x64-1_66.lib;libboost_math_c99-vc141-mt-gd-x64-1_66.lib;libboost_math_tr1f-vc141-mt-gd-x64-1_66.lib;libboost_math_tr1l-vc141-mt-gd-x64-1_66.lib;libboost_math_tr1-vc141-mt-gd-x64-1_66.lib;libboost_prg_exec_monitor-vc141-mt-gd-x64-1_66.lib;libboost_program_options-vc141-mt-gd-x64-1_66.lib;libboost_python-vc141-mt-gd-x64-1_66.lib;libboost_random-vc141-mt-gd-x64-1_66.lib;libboost_regex-vc141-mt-gd-x64-1_66.lib;libboost_serialization-vc141-mt-gd-x64-1_66.lib;libboost_signals-vc141-mt-gd-x64-1_66.lib;libboost_stacktrace_noop-vc141-mt-gd-x64-1_66.lib;libboost_stacktrace_windbg_cached-vc141-mt-gd-x64-1_66.lib;libboost_stacktrace_windbg-vc141-mt-gd-x64-1_66.lib;libboost_system-vc141-mt-gd-x64-1_66.lib;libboost_test_exec_monitor-vc141-mt-gd-x64-1_66.lib;libboost_thread-vc141-mt-gd-x64-1_66.lib;libboost_timer-vc141-mt-gd-x64-1_66.lib;libboost_type_erasure-vc141-mt-gd-x64-1_66.lib;libboost_unit_test_framework-vc141-mt-gd-x64-1_66.lib;libboost_wave-vc141-mt-gd-x64-1_66.lib;libboost_wserialization-vc141-mt-gd-x64-1_66.lib;d3d11.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;$(ProjectDir)libs\x64;$(ProjectDir)3rdparty\VHGPUImage\lib\$(PlatformName);$(ProjectDir)3rdparty\boost_1_66_0\stage\lib\x64\MDd;$(ProjectDir)\3rdparty\directx\lib\x64\;$(ProjectDir)\3rdparty\media_reader\lib\x64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <SubSystem>Console</SubSystem>
+      <ModuleDefinitionFile>Source.def</ModuleDefinitionFile>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>webrtc.lib;sioclient.lib;winmm.lib;Strmiids.lib;Secur32.lib;Msdmo.lib;Dmoguids.lib;wmcodecdspuuid.lib;libboost_atomic-vc141-mt-sgd-x64-1_66.lib;libboost_chrono-vc141-mt-sgd-x64-1_66.lib;libboost_container-vc141-mt-sgd-x64-1_66.lib;libboost_context-vc141-mt-sgd-x64-1_66.lib;libboost_coroutine-vc141-mt-sgd-x64-1_66.lib;libboost_date_time-vc141-mt-sgd-x64-1_66.lib;libboost_exception-vc141-mt-sgd-x64-1_66.lib;libboost_fiber-vc141-mt-sgd-x64-1_66.lib;libboost_filesystem-vc141-mt-sgd-x64-1_66.lib;libboost_graph-vc141-mt-sgd-x64-1_66.lib;libboost_iostreams-vc141-mt-sgd-x64-1_66.lib;libboost_locale-vc141-mt-sgd-x64-1_66.lib;libboost_log-vc141-mt-sgd-x64-1_66.lib;libboost_log_setup-vc141-mt-sgd-x64-1_66.lib;libboost_math_c99-vc141-mt-sgd-x64-1_66.lib;libboost_math_c99f-vc141-mt-sgd-x64-1_66.lib;libboost_math_c99l-vc141-mt-sgd-x64-1_66.lib;libboost_math_tr1-vc141-mt-sgd-x64-1_66.lib;libboost_math_tr1f-vc141-mt-sgd-x64-1_66.lib;libboost_math_tr1l-vc141-mt-sgd-x64-1_66.lib;libboost_prg_exec_monitor-vc141-mt-sgd-x64-1_66.lib;libboost_program_options-vc141-mt-sgd-x64-1_66.lib;libboost_python-vc141-mt-sgd-x64-1_66.lib;libboost_random-vc141-mt-sgd-x64-1_66.lib;libboost_regex-vc141-mt-sgd-x64-1_66.lib;libboost_serialization-vc141-mt-sgd-x64-1_66.lib;libboost_signals-vc141-mt-sgd-x64-1_66.lib;libboost_stacktrace_noop-vc141-mt-sgd-x64-1_66.lib;libboost_stacktrace_windbg-vc141-mt-sgd-x64-1_66.lib;libboost_stacktrace_windbg_cached-vc141-mt-sgd-x64-1_66.lib;libboost_system-vc141-mt-sgd-x64-1_66.lib;libboost_test_exec_monitor-vc141-mt-sgd-x64-1_66.lib;libboost_thread-vc141-mt-sgd-x64-1_66.lib;libboost_timer-vc141-mt-sgd-x64-1_66.lib;libboost_type_erasure-vc141-mt-sgd-x64-1_66.lib;libboost_unit_test_framework-vc141-mt-sgd-x64-1_66.lib;libboost_wave-vc141-mt-sgd-x64-1_66.lib;libboost_wserialization-vc141-mt-sgd-x64-1_66.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)libs;$(ProjectDir)\3rdparty\boost_1_66_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)3rdparty\VHGPUImage\include;$(ProjectDir)3rdparty\vhall_live_core\vhall_media_core\3rdparty\libjingle;$(ProjectDir)3rdparty\vhall_live_core\vhall_media_core\3rdparty\audiomixing;$(ProjectDir)3rdparty\vhall_live_core\libdshowcapture;$(ProjectDir)3rdparty\vhall_live_core\OBSApi;$(ProjectDir)3rdparty\vhall_live_core\DShowPlugin;$(ProjectDir)3rdparty\vhall_live_core\DecklinkDevice;$(ProjectDir)3rdparty\vhall_live_core\GraphicsPlugins;$(ProjectDir)3rdparty\vhall_live_core\libUtility;$(ProjectDir)3rdparty\vhall_live_core\AudioEngine;$(ProjectDir)3rdparty\common\Utility;$(ProjectDir)3rdparty\common\baseclass;$(ProjectDir)3rdparty\common\interface;$(ProjectDir)3rdparty\common\message;$(ProjectDir)3rdparty\common\def;$(ProjectDir)3rdparty\common;$(ProjectDir)3rdparty\boost_1_66_0;$(ProjectDir)3rdparty\vhall_webrtc_include;$(ProjectDir);$(ProjectDir)3rdparty;$(ProjectDir)3rdparty\socketio\lib\rapidjson;$(ProjectDir)3rdparty\socketio\lib\websocketpp;$(ProjectDir)3rdparty\directx\include\;$(ProjectDir)3rdparty\media_reader\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_CONSOLE;VHALL_WIN;V8_DEPRECATION_WARNINGS;USE_AURA=1;NO_TCMALLOC;FULL_SAFE_BROWSING;SAFE_BROWSING_CSD;SAFE_BROWSING_DB_LOCAL;CHROMIUM_BUILD;FIELDTRIAL_TESTING_ENABLED;"CR_CLANG_REVISION=\"325667-1\"";_HAS_EXCEPTIONS=0;__STD_C;_CRT_RAND_S;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;DEPRECATEDENUMERATOR(x)=[[deprecated(x)]];_ATL_NO_OPENGL;_WINDOWS;CERT_CHAIN_PARA_HAS_EXTRA_FIELDS;PSAPI_VERSION=1;_SECURE_ATL;_USING_V110_SDK71_;WIN32_LEAN_AND_MEAN;NOMINMAX;_UNICODE;UNICODE;NTDDI_VERSION=0x0A000000;_WIN32_WINNT=0x0A00;WINVER=0x0A00;DYNAMIC_ANNOTATIONS_ENABLED=1;WTF_USE_DYNAMIC_ANNOTATIONS=1;WEBRTC_ENABLE_PROTOBUF=1;WEBRTC_INCLUDE_INTERNAL_AUDIO_DEVICE;HAVE_SCTP;USE_BUILTIN_SW_CODECS;WEBRTC_NON_STATIC_TRACE_EVENT_HANDLERS=1;WEBRTC_WIN;_CRT_SECURE_NO_WARNINGS;HAVE_WEBRTC_VIDEO;HAVE_WEBRTC_VOICE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeaderFile />
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions</EnableEnhancedInstructionSet>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ModuleDefinitionFile>Source.def</ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>$(ProjectDir)3rdparty\VHGPUImage\lib;$(SolutionDir)$(Configuration)\;$(ProjectDir)libs\x86;$(ProjectDir)3rdparty\boost_1_66_0\stage\lib\x86\release_MD;$(ProjectDir)3rdparty\directx\lib\x86\;$(ProjectDir)3rdparty\media_reader\lib\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;glew32s.lib;freeglut.lib;webrtc_release.lib;sioclient_release.lib;VhallOBS.lib;libjingle.lib;vhall_ns_process.lib;audio_mixing.lib;VhallAudioEngine.lib;VhallDecklinkDevice.lib;Vhalldshowcapture.lib;VhallDShowPlugin.lib;winmm.lib;Strmiids.lib;Secur32.lib;Msdmo.lib;Dmoguids.lib;wmcodecdspuuid.lib;winhttp.lib;libboost_atomic-vc141-mt-x32-1_66.lib;libboost_chrono-vc141-mt-x32-1_66.lib;libboost_container-vc141-mt-x32-1_66.lib;libboost_context-vc141-mt-x32-1_66.lib;libboost_coroutine-vc141-mt-x32-1_66.lib;libboost_date_time-vc141-mt-x32-1_66.lib;libboost_exception-vc141-mt-x32-1_66.lib;libboost_fiber-vc141-mt-x32-1_66.lib;libboost_filesystem-vc141-mt-x32-1_66.lib;libboost_graph-vc141-mt-x32-1_66.lib;libboost_iostreams-vc141-mt-x32-1_66.lib;libboost_locale-vc141-mt-x32-1_66.lib;libboost_log_setup-vc141-mt-x32-1_66.lib;libboost_log-vc141-mt-x32-1_66.lib;libboost_math_c99f-vc141-mt-x32-1_66.lib;libboost_math_c99l-vc141-mt-x32-1_66.lib;libboost_math_c99-vc141-mt-x32-1_66.lib;libboost_math_tr1f-vc141-mt-x32-1_66.lib;libboost_math_tr1l-vc141-mt-x32-1_66.lib;libboost_math_tr1-vc141-mt-x32-1_66.lib;libboost_prg_exec_monitor-vc141-mt-x32-1_66.lib;libboost_program_options-vc141-mt-x32-1_66.lib;libboost_python-vc141-mt-x32-1_66.lib;libboost_random-vc141-mt-x32-1_66.lib;libboost_regex-vc141-mt-x32-1_66.lib;libboost_serialization-vc141-mt-x32-1_66.lib;libboost_signals-vc141-mt-x32-1_66.lib;libboost_stacktrace_noop-vc141-mt-x32-1_66.lib;libboost_stacktrace_windbg_cached-vc141-mt-x32-1_66.lib;libboost_stacktrace_windbg-vc141-mt-x32-1_66.lib;libboost_system-vc141-mt-x32-1_66.lib;libboost_test_exec_monitor-vc141-mt-x32-1_66.lib;libboost_thread-vc141-mt-x32-1_66.lib;libboost_timer-vc141-mt-x32-1_66.lib;libboost_type_erasure-vc141-mt-x32-1_66.lib;libboost_unit_test_framework-vc141-mt-x32-1_66.lib;libboost_wave-vc141-mt-x32-1_66.lib;libboost_wserialization-vc141-mt-x32-1_66.lib;d3d11.lib;dxgi.lib;libvlc.lib;libvlccore.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateMapFile>false</GenerateMapFile>
+      <SubSystem>NotSet</SubSystem>
+      <ProgramDatabaseFile>$(SolutionDir)pdb32\$(TargetName).pdb</ProgramDatabaseFile>
+      <StripPrivateSymbols>$(SolutionDir)pdb32\stripped\$(TargetName).pdb</StripPrivateSymbols>
+      <MapExports>false</MapExports>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>false</ConformanceMode>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir)3rdparty\VHGPUImage\include;$(ProjectDir)3rdparty\vhall_live_core\libUtility;$(ProjectDir)3rdparty\vhall_live_core\libdshowcapture;$(ProjectDir)3rdparty\vhall_live_core\libdshowcapture\source;$(ProjectDir)3rdparty\vhall_live_core\AudioEngine;$(ProjectDir)3rdparty\vhall_live_core\vhall_media_core\3rdparty\audiomixing;$(ProjectDir)3rdparty\vhall_live_core\OBSApi;$(ProjectDir)3rdparty\vhall_live_core\GraphicsPlugins;$(ProjectDir)3rdparty\vhall_live_core\DecklinkDevice;$(ProjectDir)3rdparty\common\Utility;$(ProjectDir)3rdparty\common\baseclass;$(ProjectDir)3rdparty\common\interface;$(ProjectDir)3rdparty\common\message;$(ProjectDir)3rdparty\common\def;$(ProjectDir)3rdparty\common;$(ProjectDir)3rdparty\vhall_live_core\DShowPlugin;$(ProjectDir)3rdparty\socketio\lib\rapidjson\include;$(ProjectDir)3rdparty\socketio\lib\websocketpp;$(ProjectDir)\3rdparty\boost_1_66_0;$(ProjectDir)3rdparty\vhall_webrtc_include\third_party\abseil-cpp\;$(ProjectDir)\3rdparty\vhall_webrtc_include;$(ProjectDir);$(ProjectDir)\3rdparty;$(ProjectDir)\3rdparty\socketio\lib\rapidjson;$(ProjectDir)\3rdparty\directx\include\;$(ProjectDir)\3rdparty\media_reader\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>VHALL_WIN;V8_DEPRECATION_WARNINGS;USE_AURA=1;NO_TCMALLOC;FULL_SAFE_BROWSING;SAFE_BROWSING_CSD;SAFE_BROWSING_DB_LOCAL;CHROMIUM_BUILD;FIELDTRIAL_TESTING_ENABLED;"CR_CLANG_REVISION=\"325667-1\"";_HAS_EXCEPTIONS=0;__STD_C;_CRT_RAND_S;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;DEPRECATEDENUMERATOR(x)=[[deprecated(x)]];_ATL_NO_OPENGL;_WINDOWS;CERT_CHAIN_PARA_HAS_EXTRA_FIELDS;PSAPI_VERSION=1;WIN32;_SECURE_ATL;_USING_V110_SDK71_;WIN32_LEAN_AND_MEAN;NOMINMAX;_UNICODE;UNICODE;NTDDI_VERSION=0x0A000000;_WIN32_WINNT=0x0A00;WINVER=0x0A00;DYNAMIC_ANNOTATIONS_ENABLED=1;WTF_USE_DYNAMIC_ANNOTATIONS=1;WEBRTC_ENABLE_PROTOBUF=1;WEBRTC_INCLUDE_INTERNAL_AUDIO_DEVICE;HAVE_SCTP;USE_BUILTIN_SW_CODECS;WEBRTC_NON_STATIC_TRACE_EVENT_HANDLERS=1;WEBRTC_WIN;_CRT_SECURE_NO_WARNINGS;HAVE_WEBRTC_VIDEO;HAVE_WEBRTC_VOICE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ModuleDefinitionFile>Source.def</ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;$(ProjectDir)3rdparty\VHGPUImage\lib\$(PlatformName);$(ProjectDir)libs\x64;$(ProjectDir)\3rdparty\boost_1_66_0\stage\lib\x64\MD;$(ProjectDir)\3rdparty\directx\lib\x64\;$(ProjectDir)\3rdparty\media_reader\lib\x64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>webrtc_release_x64.lib;sioclient_release.lib;glew_shared_x64_Release.lib;freeglut_$(PlatformName)_$(Configuration).lib;vhall_ns_process_x64_release.lib;Vhallaudio_mixing.lib;Vhallobsapi.lib;Avrt.lib;Vhalllibsamplerate.lib;VhallAudioEngine.lib;Vhalldshowcapture.lib;VhallDecklinkDevice.lib;VhallOBS.lib;VhallOBSApi.lib;VhallDShowPlugin.lib;winmm.lib;Strmiids.lib;Secur32.lib;Msdmo.lib;Dmoguids.lib;wmcodecdspuuid.lib;winhttp.lib;VhallNetWork.lib;libboost_atomic-vc141-mt-x64-1_66.lib;libboost_chrono-vc141-mt-x64-1_66.lib;libboost_container-vc141-mt-x64-1_66.lib;libboost_context-vc141-mt-x64-1_66.lib;libboost_coroutine-vc141-mt-x64-1_66.lib;libboost_date_time-vc141-mt-x64-1_66.lib;libboost_exception-vc141-mt-x64-1_66.lib;libboost_fiber-vc141-mt-x64-1_66.lib;libboost_filesystem-vc141-mt-x64-1_66.lib;libboost_graph-vc141-mt-x64-1_66.lib;libboost_iostreams-vc141-mt-x64-1_66.lib;libboost_locale-vc141-mt-x64-1_66.lib;libboost_log_setup-vc141-mt-x64-1_66.lib;libboost_log-vc141-mt-x64-1_66.lib;libboost_math_c99f-vc141-mt-x64-1_66.lib;libboost_math_c99l-vc141-mt-x64-1_66.lib;libboost_math_c99-vc141-mt-x64-1_66.lib;libboost_math_tr1f-vc141-mt-x64-1_66.lib;libboost_math_tr1l-vc141-mt-x64-1_66.lib;libboost_math_tr1-vc141-mt-x64-1_66.lib;libboost_prg_exec_monitor-vc141-mt-x64-1_66.lib;libboost_program_options-vc141-mt-x64-1_66.lib;libboost_python-vc141-mt-x64-1_66.lib;libboost_random-vc141-mt-x64-1_66.lib;libboost_regex-vc141-mt-x64-1_66.lib;libboost_serialization-vc141-mt-x64-1_66.lib;libboost_signals-vc141-mt-x64-1_66.lib;libboost_stacktrace_noop-vc141-mt-x64-1_66.lib;libboost_stacktrace_windbg_cached-vc141-mt-x64-1_66.lib;libboost_stacktrace_windbg-vc141-mt-x64-1_66.lib;libboost_system-vc141-mt-x64-1_66.lib;libboost_test_exec_monitor-vc141-mt-x64-1_66.lib;libboost_thread-vc141-mt-x64-1_66.lib;libboost_timer-vc141-mt-x64-1_66.lib;libboost_type_erasure-vc141-mt-x64-1_66.lib;libboost_unit_test_framework-vc141-mt-x64-1_66.lib;libboost_wave-vc141-mt-x64-1_66.lib;libboost_wserialization-vc141-mt-x64-1_66.lib;d3d11.lib;dxgi.lib;libvlc.lib;libvlccore.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="signalling\vh_connection.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\vh_data_message.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\vh_events.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\vh_room.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\vh_signaling_channel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\vh_stream.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\transporter\message_wrapper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\transporter\socketio_transport.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\transporter\transport.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\lib_json\json.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\lib_json\json_batchallocator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\lib_json\json_tool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\BaseStack\BaseStack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\vh_tools.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\media_reader\BufferQueue.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\media_reader\IMediaOutput.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\media_reader\IMediaReader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\media_reader\Logging.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\media_reader\MediaReader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\media_reader\stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\media_reader\targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\vh_uplog.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\BaseStack\CreateOfferObserver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\BaseStack\SetAnswerObserver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\BaseStack\CreatePeerConnectionObserver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\BaseStack\SetLocalDescriptionObserver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\BaseStack\GetStatsObserver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\BaseStack\VideoRenderer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\tool\audio_device_detect.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\tool\vhall_dev_format.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\BaseStack\Snapshot.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\tool\JpegEncode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\vhall_voice_change\AudioBuffer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\vhall_voice_change\VoiceChange.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\tool\platformInfo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\tool\AudioPlayDataReader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\tool\AudioPlayDeviceModule.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\BaseStack\audioExport.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\tool\audioDataFromCapture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\tool\AudioSendFrame.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\BaseStack\BaseAudioDeviceModule.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\BaseStack\AdmConfig.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\tool\vhall_monitor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\BaseStack\UpStats.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\BaseStack\SnapShotCallBack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\tool\VideoRenderReceiver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VHCapture\audio_device_custom.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="common\arithmetic.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="common\base64.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="common\data_combine_split.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="common\live_sys.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="common\message_type.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="common\sdp_helpers.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="common\urlParse.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="common\vhall_define.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="common\vhall_log.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="common\vhall_thread.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="common\vhall_timer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="common\vhall_utility.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="common\video_profile.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VHCapture\vhall_audio_device\vh_audio_device_core_win.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VHCapture\vhall_audio_device\vh_audio_device_impl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VHCapture\vhall_audio_capture\AudioCaptureMix.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VHCapture\vhall_audio_capture\AudioDeviceNotify.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VHCapture\vhall_audio_capture\AudioLoopBackRecording.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VHCapture\vhall_audio_capture\DShowAudioCapture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VHCapture\vhall_audio_capture\VhallAudioMixing.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\tool\DeviceObtain.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VHCapture\video_capture_dshow\video_capture_ds.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VHCapture\video_capture_dshow\sink_filter_ds.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\VHGPUImage\wglContext\VHGLContext.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\VHGPUImage\wglContext\VHOpenGLBase.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\VHGPUImage\VHBeautifyFilter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\VHGPUImage\VHBeautifyRender.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\VHGPUImage\VHGPUImageBrightnessFilter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\VHGPUImage\VHGPUImageFilter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\VHGPUImage\VHOpenGLUtil.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\VHGPUImage\VHRunnable.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\VHGPUImage\VHShaderUtil.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VHCapture\vhall_video_capture\desktop_capture_impl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VHCapture\vhall_video_capture\file_video_capture_impl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VHCapture\vhall_video_capture\picture_capture_impl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VHCapture\vhall_video_capture\VhallVideoCapture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VHCapture\vhall_video_capture\VhallRectUtil.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VHCapture\vhall_video_capture\vhall_video_capturer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VHCapture\vhall_video_capture\vhall_vcm_capturer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VHCapture\file_audio_device.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\BaseStack\statsInfo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\event\BroadCastEvents.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="signalling\vh_uplog_define.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VHCapture\video_capture_dshow\video_capture_impl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\video_process\src\ImageEnhance.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VHCapture\vhall_video_capture\video_process_filter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\VHGPUImage\log.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="signalling\transporter\message_wrapper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\vh_connection.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\vh_data_message.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\vh_events.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\vh_room.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\vh_signaling_channel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\vh_stream.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\transporter\socketio_transport.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\lib_json\json.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\lib_json\json_reader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\lib_json\json_value.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\lib_json\json_writer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\BaseStack\BaseStack.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\vh_tools.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\media_reader\BufferQueue.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\media_reader\dllmain.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\media_reader\Logging.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\media_reader\MediaReader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\media_reader\stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\vh_uplog.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\BaseStack\CreateOfferObserver.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\BaseStack\SetAnswerObserver.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\BaseStack\CreatePeerConnectionObserver.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\BaseStack\SetLocalDescriptionObserver.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\BaseStack\GetStatsObserver.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\BaseStack\VideoRenderer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\tool\audio_device_detect.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\BaseStack\Snapshot.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\tool\JpegEncode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\vhall_voice_change\AudioBuffer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\vhall_voice_change\VoiceChange.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\tool\platformInfo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\tool\AudioPlayDataReader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\tool\AudioPlayDeviceModule.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\BaseStack\audioExport.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\tool\AudioDataFromCapture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\BaseStack\AdmConfig.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\BaseStack\BaseAudioDeviceModule.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\tool\vhall_monitor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\BaseStack\UpStats.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VHCapture\audio_device_custom.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="common\arith_base64.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="common\base64.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="common\data_combine_split.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="common\live_sys.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="common\sdp_helpers.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="common\urlParse.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="common\vhall_define.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="common\vhall_log.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="common\vhall_utility.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="common\video_profile.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VHCapture\vhall_audio_device\vh_audio_device_core_win.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VHCapture\vhall_audio_device\vh_audio_device_impl.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VHCapture\vhall_audio_capture\AudioCaptureMix.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VHCapture\vhall_audio_capture\AudioDeviceNotify.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VHCapture\vhall_audio_capture\AudioLoopBackRecording.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VHCapture\vhall_audio_capture\DShowAudioCapture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VHCapture\vhall_audio_capture\VhallAudioMixing.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\tool\DeviceObtain.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VHCapture\video_capture_dshow\video_capture_ds.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VHCapture\video_capture_dshow\sink_filter_ds.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\VHGPUImage\wglContext\VHGLContext.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\VHGPUImage\wglContext\VHOpenGLBase.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\VHGPUImage\VHBeautifyFilter.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\VHGPUImage\VHBeautifyRender.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\VHGPUImage\VHGPUImageBrightnessFilter.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\VHGPUImage\VHGPUImageFilter.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\VHGPUImage\VHRunnable.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\VHGPUImage\VHShaderUtil.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VHCapture\vhall_video_capture\desktop_capture_impl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VHCapture\vhall_video_capture\file_video_capture_impl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VHCapture\vhall_video_capture\picture_capture_impl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VHCapture\vhall_video_capture\VhallVideoCapture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VHCapture\vhall_video_capture\vhall_video_capturer.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VHCapture\vhall_video_capture\vhall_vcm_capturer.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VHCapture\file_audio_device.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="signalling\event\BroadCastEvents.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VHCapture\video_capture_dshow\video_capture_impl.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\video_process\src\ImageEnhance.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VHCapture\vhall_video_capture\video_process_filter.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source.def">
+      <Filter>源文件</Filter>
+    </None>
+  </ItemGroup>
+</Project>
