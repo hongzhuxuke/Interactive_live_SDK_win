@@ -70,6 +70,10 @@ public:
   AudioSendFrame* mListener = nullptr;
   uint32_t        mVolume = 0;
 
+  // render
+  HWND wnd = nullptr;
+  std::weak_ptr<VideoRenderReceiveInterface> receiver;
+
   /* snapShot */
   SnapShotCallBack * mSnapShotListener = nullptr;
   int                mSnapWidth = 0;
@@ -211,7 +215,7 @@ public:
 
   HWND wnd = nullptr;
   //VideoRenderReceiveInterface* receiver = nullptr;
-  std::shared_ptr<VideoRenderReceiveInterface> receiver = nullptr;
+  std::weak_ptr<VideoRenderReceiveInterface> receiver;
   // Devices
   std::string VideoDevID;
   uint32_t DesktopID;

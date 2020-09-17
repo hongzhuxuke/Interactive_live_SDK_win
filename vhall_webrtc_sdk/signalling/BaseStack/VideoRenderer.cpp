@@ -50,9 +50,9 @@ void VideoRenderer::SetSize(int width, int height) {
   image_.reset(new uint8_t[bmi_.bmiHeader.biSizeImage]);
 }
 
-void VideoRenderer::OnFrame(const webrtc::VideoFrame& video_frame) {
+void VideoRenderer::OnFrame(const webrtc::VideoFrame& video_frame) 
+{
   // LOGD("OnFrame");
-  {
     AutoLock<VideoRenderer> lock(this);
 
     rtc::scoped_refptr<webrtc::I420BufferInterface> buffer(
