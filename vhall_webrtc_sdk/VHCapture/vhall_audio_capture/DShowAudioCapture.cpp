@@ -11,6 +11,7 @@
 //#include "talk/base/thread.h"
 
 /* for InitDShowPlugin */
+static bool plugInited = false;
 bool DShowFileOpen(char *filename) { return false; }
 bool DSHowFileClear() { return true; }
 bool DShowFileWrite(DeviceInfo deviceInfo, UINT width, UINT height, int frameInternal, DeinterlacingType type, VideoFormat format) { return true; }
@@ -21,7 +22,10 @@ namespace vhall {
   DShowAudioCapture::DShowAudioCapture() {
     /* Init DShow plug */
     //InitDeckLinkDeviceManager();
-    InitDShowPlugin(DShowFileOpen, DSHowFileClear, DShowFileRead, DShowFileWrite, DShowFileClose);
+    if (!plugInited) {
+      InitDShowPlugin(DShowFileOpen, DSHowFileClear, DShowFileRead, DShowFileWrite, DShowFileClose);
+      plugInited = true;
+    }
   }
 
   DShowAudioCapture::~DShowAudioCapture() {

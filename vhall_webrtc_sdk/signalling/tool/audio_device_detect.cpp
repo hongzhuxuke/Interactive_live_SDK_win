@@ -18,11 +18,24 @@ namespace vhall {
   }
 
   bool AudioDeviceDetect::Init() {
-    CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), reinterpret_cast<void**>(&_ptrEnumerator));
+    if (!_comInit) {
+      _comInit.reset(new ScopedCOMInitializer(ScopedCOMInitializer::kMTA));
+      if (!_comInit->succeeded()) {
+        // Things will work even if an STA thread is calling this method but we
+        // want to ensure that MTA is used and therefore return false here.
+        return false;
+      }
+    }
+    HRESULT ret = CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), reinterpret_cast<void**>(&_ptrEnumerator));
     if (_ptrEnumerator) {
       _initalize = true;
     }
-    return NULL != _ptrEnumerator;
+    DWORD errorNum = GetLastError();
+    bool successed = NULL != _ptrEnumerator;
+    if (!successed) {
+      LOGE("AudioDeviceDetect::Init failed");
+    }
+    return successed;
   }
 
   bool AudioDeviceDetect::Destroy() {
@@ -31,6 +44,7 @@ namespace vhall {
     SAFE_RELEASE(_ptrDeviceOut);
     SAFE_RELEASE(_ptrDeviceIn);
     SAFE_RELEASE(_ptrEnumerator);
+    _comInit.reset();
     LOGI("Destroy done");
     return true;
   }

@@ -192,7 +192,7 @@ public:
 
   std::mutex       mRoomMtx;
   std::mutex       mBaseMtx;
-  std::shared_ptr<VHRoom>    mRoom;
+  std::weak_ptr<VHRoom>    mRoom;
   std::shared_ptr<BaseStack> mBaseStack;
 private:
   VideoProfileList mVideoProfiles;

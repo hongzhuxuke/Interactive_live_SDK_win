@@ -36,6 +36,9 @@
 #include "../vhall_audio_capture/AudioLoopBackRecording.h"
 #include "../vhall_audio_capture/AudioDeviceNotify.h"
 #include "../../signalling/tool/AudioDataFromCapture.h"
+#include "audio_resample/AudioSource.h"
+#include "audio_resample/AudioResampler.h"
+
 
 namespace vhall {
   class NoiseSuppression;
@@ -325,12 +328,32 @@ namespace webrtc {
     uint32_t _sndCardPlayDelay;
     UINT64 _writtenSamples;
     UINT64 _readSamples;
+    /** 音频渲染自动转换采样格式、ch、采样率？？ 
+        渲染目标格式 48k 双声道 float交错
+    */
+    uint32_t render_dst_sample_rate = 48000;
+    uint32_t render_dst_ch = 2;
+    WAVEFORMATEXTENSIBLE waveFormat;
+
+
+
+    //DWORD _speaker_layout = KSAUDIO_SPEAKER_STEREO;
+    /* NetEQ获取音频 48k 双声道 int16_t交错格式 */
+    std::shared_ptr<int8_t[]> request_audio_data;
+    uint32_t _requestSampleRate = 48000;
+    uint32_t _requestCh = 2;
 
     UINT _recAudioFrameSize;
     uint32_t _recSampleRate;
     uint32_t _recBlockSize;
     uint32_t _recChannels;
     DWORD _inputChannelMask = 0;
+
+    /* 音频重采样为44k 双声道 浮点交错格式 */
+    std::shared_ptr<vhall::AudioSource> resamper_render_;
+    vhall::speaker_layout _speaker_layout = vhall::SPEAKERS_UNKNOWN;
+    uint32_t framesIn10Ms = 441;
+    uint32_t dstCh = 2;;
 
     uint16_t _recChannelsPrioList[3];
     uint16_t _playChannelsPrioList[2];
@@ -353,6 +376,7 @@ namespace webrtc {
     uint16_t _inputDeviceIndex;
     uint16_t _outputDeviceIndex;
 
+    std::shared_ptr<vhall::AudioSource> resamper_source_;
     webrtc::FileWrapper f_pcm;
   };
 

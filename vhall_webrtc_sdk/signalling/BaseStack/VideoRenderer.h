@@ -42,7 +42,7 @@ protected:
   };
 
   HWND wnd_ = nullptr;
-  std::shared_ptr<VideoRenderReceiveInterface> receiver = nullptr;
+  std::weak_ptr<VideoRenderReceiveInterface> recv;
   BITMAPINFO bmi_;
   std::unique_ptr<uint8_t[]> image_;
   CRITICAL_SECTION buffer_lock_;

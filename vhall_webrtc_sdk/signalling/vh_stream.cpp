@@ -159,7 +159,9 @@ void VHStream::play(HWND &wnd) {
   std::unique_lock<std::mutex> lock(mBaseMtx);
   if (!showing && mBaseStack) {
     mBaseStack->wnd = wnd;
-    mBaseStack->PostTask(PLAY_STREAM, nullptr);
+    BaseMessage* bsMsg = new BaseMessage();
+    bsMsg->wnd = wnd;
+    mBaseStack->PostTask(PLAY_STREAM, bsMsg);
   }
   lock.unlock();
   showing = true;
@@ -171,7 +173,9 @@ void VHStream::play(std::shared_ptr<VideoRenderReceiveInterface> receiver) {
   std::unique_lock<std::mutex> lock(mBaseMtx);
   if (!showing && mBaseStack) {
     mBaseStack->receiver = receiver;
-    mBaseStack->PostTask(PLAY_STREAM, nullptr);
+    BaseMessage* bsMsg = new BaseMessage();
+    bsMsg->receiver = receiver;
+    mBaseStack->PostTask(PLAY_STREAM, bsMsg);
   }
   lock.unlock();
   showing = true;
@@ -190,7 +194,7 @@ void VHStream::stop() {
       mBaseStack->PostTask(STOP_STREAM, nullptr);
     }
     mBaseStack->wnd = nullptr;
-    mBaseStack->receiver = nullptr;
+    mBaseStack->receiver;
   }
   lock.unlock();
   showing = false;
@@ -458,7 +462,7 @@ bool VHStream::SetFilterParam(LiveVideoFilterParam filterParam) {
       return false;
     }
   }
- // return true;
+
   std::unique_lock<std::mutex> lock(mBaseMtx);
   if (mBaseStack) {
     mBaseStack->SetFilterParam(filterParam);
@@ -478,6 +482,8 @@ void VHStream::SetAudioListener(AudioSendFrame* listener) {
       LOGE("new BaseMessage failed");
     }
   }
+
+  return;
 }
 
 bool VHStream::ChangeVoiceType(VoiceChangeType newType) {
@@ -708,7 +714,7 @@ void VHStream::SetRoom(std::shared_ptr<VHRoom> room) {
 std::shared_ptr<VHRoom> VHStream::GetRoom()
 {
   std::unique_lock<std::mutex> l(mRoomMtx);
-  return mRoom;
+  return mRoom.lock();
 }
 
 void VHStream::SetReport(std::shared_ptr<VHLogReport> report) {

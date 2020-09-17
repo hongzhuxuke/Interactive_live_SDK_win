@@ -297,6 +297,18 @@
     <ClInclude Include="3rdparty\VHGPUImage\log.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="VHCapture\vhall_audio_device\audio_resample\util_uint128.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VHCapture\vhall_audio_device\audio_resample\AudioSource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VHCapture\vhall_audio_device\audio_resample\AudioResampler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VHCapture\vhall_audio_device\audio_resample\AudioRSUtil.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="signalling\transporter\message_wrapper.cpp">
@@ -537,6 +549,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="VHCapture\vhall_video_capture\video_process_filter.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VHCapture\vhall_audio_device\audio_resample\AudioSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VHCapture\vhall_audio_device\audio_resample\AudioResampler.cc">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

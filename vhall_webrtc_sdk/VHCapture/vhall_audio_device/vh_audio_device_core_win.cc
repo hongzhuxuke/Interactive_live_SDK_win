@@ -34,6 +34,7 @@
 #include "system_wrappers/include/sleep.h"
 #include "common/vhall_log.h"
 #include "common/vhall_define.h"
+#include "audio_resample/AudioRSUtil.h"
 
 #define mixed_audio_sample_rate 44100
 #define mixed_audio_channel 2
@@ -1941,114 +1942,52 @@ namespace webrtc {
     }
 
     HRESULT hr = S_OK;
-    WAVEFORMATEX* pWfxOut = NULL;
-    WAVEFORMATEX Wfx = WAVEFORMATEX();
-    WAVEFORMATEX* pWfxClosestMatch = NULL;
 
     // Create COM object with IAudioClient interface.
     SAFE_RELEASE(_ptrClientOut);
-    hr = _ptrDeviceOut->Activate(__uuidof(IAudioClient), CLSCTX_ALL, NULL,
-      (void**)&_ptrClientOut);
+    hr = _ptrDeviceOut->Activate(__uuidof(IAudioClient), CLSCTX_ALL, NULL, (void**)&_ptrClientOut);
     EXIT_ON_ERROR(hr);
-
-    // Retrieve the stream format that the audio engine uses for its internal
-    // processing (mixing) of shared-mode streams.
-    hr = _ptrClientOut->GetMixFormat(&pWfxOut);
-    if (SUCCEEDED(hr)) {
-      RTC_LOG(LS_VERBOSE) << "Audio Engine's current rendering mix format:";
-      // format type
-      RTC_LOG(LS_VERBOSE) << "wFormatTag     : 0x"
-        << rtc::ToHex(pWfxOut->wFormatTag) << " ("
-        << pWfxOut->wFormatTag << ")";
-      // number of channels (i.e. mono, stereo...)
-      RTC_LOG(LS_VERBOSE) << "nChannels      : " << pWfxOut->nChannels;
-      // sample rate
-      RTC_LOG(LS_VERBOSE) << "nSamplesPerSec : " << pWfxOut->nSamplesPerSec;
-      // for buffer estimation
-      RTC_LOG(LS_VERBOSE) << "nAvgBytesPerSec: " << pWfxOut->nAvgBytesPerSec;
-      // block size of data
-      RTC_LOG(LS_VERBOSE) << "nBlockAlign    : " << pWfxOut->nBlockAlign;
-      // number of bits per sample of mono data
-      RTC_LOG(LS_VERBOSE) << "wBitsPerSample : " << pWfxOut->wBitsPerSample;
-      RTC_LOG(LS_VERBOSE) << "cbSize         : " << pWfxOut->cbSize;
-    }
-
-    // Set wave format
-    Wfx.wFormatTag = WAVE_FORMAT_PCM;
-    Wfx.wBitsPerSample = 16;
-    Wfx.cbSize = 0;
-
-    const int freqs[] = { 48000, 44100, 16000, 96000, 32000, 8000 };
-    hr = S_FALSE;
-
-    // Iterate over frequencies and channels, in order of priority
-    for (unsigned int freq = 0; freq < sizeof(freqs) / sizeof(freqs[0]); freq++) {
-      for (unsigned int chan = 0; chan < sizeof(_playChannelsPrioList) /
-        sizeof(_playChannelsPrioList[0]);
-        chan++) {
-        Wfx.nChannels = _playChannelsPrioList[chan];
-        Wfx.nSamplesPerSec = freqs[freq];
-        Wfx.nBlockAlign = Wfx.nChannels * Wfx.wBitsPerSample / 8;
-        Wfx.nAvgBytesPerSec = Wfx.nSamplesPerSec * Wfx.nBlockAlign;
-        // If the method succeeds and the audio endpoint device supports the
-        // specified stream format, it returns S_OK. If the method succeeds and
-        // provides a closest match to the specified format, it returns S_FALSE.
-        hr = _ptrClientOut->IsFormatSupported(AUDCLNT_SHAREMODE_SHARED, &Wfx,
-          &pWfxClosestMatch);
-        if (hr == S_OK) {
-          break;
-        }
-        else {
-          if (pWfxClosestMatch) {
-            RTC_LOG(INFO) << "nChannels=" << Wfx.nChannels
-              << ", nSamplesPerSec=" << Wfx.nSamplesPerSec
-              << " is not supported. Closest match: "
-              << "nChannels=" << pWfxClosestMatch->nChannels
-              << ", nSamplesPerSec="
-              << pWfxClosestMatch->nSamplesPerSec;
-            CoTaskMemFree(pWfxClosestMatch);
-            pWfxClosestMatch = NULL;
-          }
-          else {
-            RTC_LOG(INFO) << "nChannels=" << Wfx.nChannels
-              << ", nSamplesPerSec=" << Wfx.nSamplesPerSec
-              << " is not supported. No closest match.";
-          }
-        }
-      }
-      if (hr == S_OK)
-        break;
-    }
 
     // TODO(andrew): what happens in the event of failure in the above loop?
     //   Is _ptrClientOut->Initialize expected to fail?
     //   Same in InitRecording().
-    if (hr == S_OK) {
-      _playAudioFrameSize = Wfx.nBlockAlign;
+
+    WAVEFORMATEXTENSIBLE &wf = this->waveFormat;
+    wf.Format.cbSize = sizeof(WAVEFORMATEXTENSIBLE);
+    wf.Format.wFormatTag = WAVE_FORMAT_EXTENSIBLE;
+    wf.Format.nChannels = (WORD)render_dst_ch;
+    wf.Format.wBitsPerSample = 8 * sizeof(float);
+    wf.Format.nSamplesPerSec = (DWORD)render_dst_sample_rate;
+    wf.Samples.wValidBitsPerSample = 8 * sizeof(float);
+    wf.Format.nBlockAlign = (wf.Format.wBitsPerSample / 8) * wf.Format.nChannels;
+    wf.Format.nAvgBytesPerSec = wf.Format.nSamplesPerSec * wf.Format.nBlockAlign;
+    wf.dwChannelMask = KSAUDIO_SPEAKER_STEREO;
+    wf.SubFormat = KSDATAFORMAT_SUBTYPE_IEEE_FLOAT;
+
+    {
+      _playAudioFrameSize = wf.Format.nBlockAlign;
       // Block size is the number of samples each channel in 10ms.
-      _playBlockSize = Wfx.nSamplesPerSec / 100;
-      _playSampleRate = Wfx.nSamplesPerSec;
-      _devicePlaySampleRate =
-        Wfx.nSamplesPerSec;  // The device itself continues to run at 44.1 kHz.
-      _devicePlayBlockSize = Wfx.nSamplesPerSec / 100;
-      _playChannels = Wfx.nChannels;
+      _playBlockSize = wf.Format.nSamplesPerSec / 100;
+      _playSampleRate = wf.Format.nSamplesPerSec;
+      _devicePlaySampleRate = wf.Format.nSamplesPerSec;  // The device itself continues to run at 44.1 kHz.
+      _devicePlayBlockSize = wf.Format.nSamplesPerSec / 100;
+      _playChannels = wf.Format.nChannels;
 
       RTC_LOG(LS_VERBOSE) << "VoE selected this rendering format:";
       RTC_LOG(LS_VERBOSE) << "wFormatTag         : 0x"
-        << rtc::ToHex(Wfx.wFormatTag) << " (" << Wfx.wFormatTag
+        << rtc::ToHex(wf.Format.wFormatTag) << " (" << wf.Format.wFormatTag
         << ")";
-      RTC_LOG(LS_VERBOSE) << "nChannels          : " << Wfx.nChannels;
-      RTC_LOG(LS_VERBOSE) << "nSamplesPerSec     : " << Wfx.nSamplesPerSec;
-      RTC_LOG(LS_VERBOSE) << "nAvgBytesPerSec    : " << Wfx.nAvgBytesPerSec;
-      RTC_LOG(LS_VERBOSE) << "nBlockAlign        : " << Wfx.nBlockAlign;
-      RTC_LOG(LS_VERBOSE) << "wBitsPerSample     : " << Wfx.wBitsPerSample;
-      RTC_LOG(LS_VERBOSE) << "cbSize             : " << Wfx.cbSize;
+      RTC_LOG(LS_VERBOSE) << "nChannels          : " << wf.Format.nChannels;
+      RTC_LOG(LS_VERBOSE) << "nSamplesPerSec     : " << wf.Format.nSamplesPerSec;
+      RTC_LOG(LS_VERBOSE) << "nAvgBytesPerSec    : " << wf.Format.nAvgBytesPerSec;
+      RTC_LOG(LS_VERBOSE) << "nBlockAlign        : " << wf.Format.nBlockAlign;
+      RTC_LOG(LS_VERBOSE) << "wBitsPerSample     : " << wf.Format.wBitsPerSample;
+      RTC_LOG(LS_VERBOSE) << "cbSize             : " << wf.Format.cbSize;
       RTC_LOG(LS_VERBOSE) << "Additional settings:";
       RTC_LOG(LS_VERBOSE) << "_playAudioFrameSize: " << _playAudioFrameSize;
       RTC_LOG(LS_VERBOSE) << "_playBlockSize     : " << _playBlockSize;
       RTC_LOG(LS_VERBOSE) << "_playChannels      : " << _playChannels;
     }
-
     // Create a rendering stream.
     //
     // ****************************************************************************
@@ -2077,14 +2016,21 @@ namespace webrtc {
       // read by GetBufferSize() and it is 20ms on most machines.
       hnsBufferDuration = 30 * 10000;
     }
+
+    /* 如果格式和预设48k 2channel float不一致则配置自动格式转换 */
+    DWORD streamFlags = AUDCLNT_STREAMFLAGS_EVENTCALLBACK;
+    if (this->_ptrClientOut->IsFormatSupported(AUDCLNT_SHAREMODE_SHARED, (WAVEFORMATEX *)&wf, 0) != S_OK) {
+      streamFlags |= AUDCLNT_STREAMFLAGS_AUTOCONVERTPCM;
+    }
+
     hr = _ptrClientOut->Initialize(
       AUDCLNT_SHAREMODE_SHARED,  // share Audio Engine with other applications
-      AUDCLNT_STREAMFLAGS_EVENTCALLBACK,  // processing of the audio buffer by
+      streamFlags,  // processing of the audio buffer by
                                           // the client will be event driven
       hnsBufferDuration,  // requested buffer capacity as a time value (in
                           // 100-nanosecond units)
       0,                  // periodicity
-      &Wfx,               // selected wave format
+      (WAVEFORMATEX *)&wf,               // selected wave format
       NULL);              // session GUID
 
     if (FAILED(hr)) {
@@ -2094,8 +2040,8 @@ namespace webrtc {
 
     if (_ptrAudioBuffer) {
       // Update the audio buffer with the selected parameters
-      _ptrAudioBuffer->SetPlayoutSampleRate(_playSampleRate);
-      _ptrAudioBuffer->SetPlayoutChannels((uint8_t)_playChannels);
+      _ptrAudioBuffer->SetPlayoutSampleRate(_requestSampleRate);
+      _ptrAudioBuffer->SetPlayoutChannels((uint8_t)_requestCh);
     }
     else {
       // We can enter this state during CoreAudioIsSupported() when no
@@ -2130,16 +2076,16 @@ namespace webrtc {
     // Mark playout side as initialized
     _playIsInitialized = true;
 
-    CoTaskMemFree(pWfxOut);
-    CoTaskMemFree(pWfxClosestMatch);
+    //CoTaskMemFree(pWfxOut);
+    //CoTaskMemFree(pWfxClosestMatch);
 
     RTC_LOG(LS_VERBOSE) << "render side is now initialized";
     return 0;
 
   Exit:
     _TraceCOMError(hr);
-    CoTaskMemFree(pWfxOut);
-    CoTaskMemFree(pWfxClosestMatch);
+    //CoTaskMemFree(pWfxOut);
+    //CoTaskMemFree(pWfxClosestMatch);
     SAFE_RELEASE(_ptrClientOut);
     SAFE_RELEASE(_ptrRenderClient);
     return -1;
@@ -2322,17 +2268,51 @@ namespace webrtc {
         EXIT_ON_ERROR(-1);
       }
 
+      if (pWfxIn->nChannels == 1) {
+        _speaker_layout = vhall::SPEAKERS_MONO;
+      }
+      if (pWfxIn->nChannels == 2) {
+        _speaker_layout = vhall::SPEAKERS_STEREO;
+      }
+
       if (pWfxIn->nChannels > 2) {
         switch (_inputChannelMask) {
-        case KSAUDIO_SPEAKER_QUAD:              LOGI("Using quad speaker setup");                          break;
-        case KSAUDIO_SPEAKER_2POINT1:           LOGI("Using 2.1 speaker setup");                           break;
-        case KSAUDIO_SPEAKER_3POINT1:           LOGI("Using 3.1 speaker setup");                           break;
-        case KSAUDIO_SPEAKER_4POINT1:           LOGI("Using 4.1 speaker setup");                           break;
-        case KSAUDIO_SPEAKER_SURROUND:          LOGI("Using basic surround speaker setup");                break;
-        case KSAUDIO_SPEAKER_5POINT1:           LOGI("Using 5.1 speaker setup");                           break;
-        case KSAUDIO_SPEAKER_5POINT1_SURROUND:  LOGI("Using 5.1 surround speaker setup");                  break;
-        case KSAUDIO_SPEAKER_7POINT1:           LOGI("Using 7.1 speaker setup");                           break;
-        case KSAUDIO_SPEAKER_7POINT1_SURROUND:  LOGI("Using 7.1 surround speaker setup");                  break;
+        case KSAUDIO_SPEAKER_QUAD:       
+          _speaker_layout = vhall::SPEAKERS_QUAD;
+          LOGI("Using quad speaker setup");                
+          break;
+        case KSAUDIO_SPEAKER_2POINT1:         
+          _speaker_layout = vhall::SPEAKERS_2POINT1;
+          LOGI("Using 2.1 speaker setup");                  
+          break;
+        case KSAUDIO_SPEAKER_3POINT1:        
+          _speaker_layout = vhall::SPEAKERS_3POINT1;
+          LOGI("Using 3.1 speaker setup");   
+          break;
+        case KSAUDIO_SPEAKER_4POINT1:    
+          _speaker_layout = vhall::SPEAKERS_4POINT1;
+            LOGI("Using 4.1 speaker setup");   
+          break;
+        case KSAUDIO_SPEAKER_SURROUND:      
+          _speaker_layout = vhall::SPEAKERS_SURROUND;
+          LOGI("Using basic surround speaker setup");   
+          break;
+        case KSAUDIO_SPEAKER_5POINT1:       
+          _speaker_layout = vhall::SPEAKERS_5POINT1;
+          LOGI("Using 5.1 speaker setup");   
+          break;
+        case KSAUDIO_SPEAKER_5POINT1_SURROUND:  
+          _speaker_layout = vhall::SPEAKERS_5POINT1;
+          LOGI("Using 5.1 surround speaker setup");            
+          break;
+        case KSAUDIO_SPEAKER_7POINT1:        
+          _speaker_layout = vhall::SPEAKERS_7POINT1;
+          LOGI("Using 7.1 speaker setup");         
+          break;
+        case KSAUDIO_SPEAKER_7POINT1_SURROUND: 
+          _speaker_layout = vhall::SPEAKERS_7POINT1;
+          LOGI("Using 7.1 surround speaker setup");    
+          break;
         default:
           LOGI("Using unknown speaker setup: 0x%lX, %d channels", pWfxIn->nChannels, wfext->dwChannelMask);
           _inputChannelMask = 0;
@@ -2342,11 +2322,34 @@ namespace webrtc {
 
       if (_inputChannelMask == 0) {
         switch (pWfxIn->nChannels) {
-        case 3: _inputChannelMask = KSAUDIO_SPEAKER_2POINT1; break;
-        case 4: _inputChannelMask = KSAUDIO_SPEAKER_QUAD;    break;
-        case 5: _inputChannelMask = KSAUDIO_SPEAKER_4POINT1; break;
-        case 6: _inputChannelMask = KSAUDIO_SPEAKER_5POINT1; break;
-        case 8: _inputChannelMask = KSAUDIO_SPEAKER_7POINT1; break;
+        case 1: 
+          _speaker_layout = vhall::SPEAKERS_MONO;
+          _inputChannelMask = KSAUDIO_SPEAKER_MONO;
+          break;
+        case 2: 
+          _inputChannelMask = KSAUDIO_SPEAKER_STEREO; 
+          _speaker_layout = vhall::SPEAKERS_STEREO;
+          break;
+        case 3: 
+          _speaker_layout = vhall::SPEAKERS_2POINT1;
+          _inputChannelMask = KSAUDIO_SPEAKER_2POINT1;
+          break;
+        case 4:
+          _speaker_layout = vhall::SPEAKERS_QUAD;
+          _inputChannelMask = KSAUDIO_SPEAKER_QUAD;
+          break;
+        case 5:
+          _speaker_layout = vhall::SPEAKERS_4POINT1;
+          _inputChannelMask = KSAUDIO_SPEAKER_4POINT1; 
+          break;
+        case 6: 
+          _speaker_layout = vhall::SPEAKERS_5POINT1;
+          _inputChannelMask = KSAUDIO_SPEAKER_5POINT1;
+          break;
+        case 8: 
+          _speaker_layout = vhall::SPEAKERS_7POINT1;
+          _inputChannelMask = KSAUDIO_SPEAKER_7POINT1;
+          break;
         default:
           LOGE("Unknown speaker setup, no downmixer available.");
           EXIT_ON_ERROR(-1);
@@ -2552,6 +2555,9 @@ namespace webrtc {
           }
         }*/
         /* deliver */
+        /*if (f_pcm.is_open()) {
+          f_pcm.Write(data.get(), sampleRate / 100 * 2 *2);
+        }*/
         AudioBuffer->SetRecordedBuffer((const int8_t*)data.get(), sampleRate / 100);
         AudioBuffer->SetVQEData(0, recDelay);
         _ptrAudioBuffer->SetTypingStatus(KeyPressed());
@@ -2632,6 +2638,7 @@ namespace webrtc {
       // but we can at least resume the call.
       CloseHandle(_hRecThread);
       _hRecThread = NULL;
+      resamper_source_.reset();
     }
     else if (mAudioLayer == webrtc::AudioDeviceModule::AudioLayer::kWindowsDshowAudio) {
       /* Stop Dshow capture */
@@ -2764,6 +2771,7 @@ namespace webrtc {
       RTC_LOG(LS_ERROR) << "failed to close down webrtc_core_audio_render_thread";
       CloseHandle(_hPlayThread);
       _hPlayThread = NULL;
+      resamper_render_.reset();
       _playIsInitialized = false;
       _playing = false;
       return -1;
@@ -2787,6 +2795,7 @@ namespace webrtc {
 
       CloseHandle(_hPlayThread);
       _hPlayThread = NULL;
+      resamper_render_.reset();
 
       if (_builtInAecEnabled && _recording) {
         // The DMO won't provide us captured output data unless we
@@ -3059,7 +3068,43 @@ namespace webrtc {
             }
 
             // Get the actual (stored) data
-            nSamples = _ptrAudioBuffer->GetPlayoutData((int8_t*)pData);
+            if (!request_audio_data) {
+              request_audio_data.reset(new int8_t[480 * 2 * sizeof(int16_t)]);
+            }
+            nSamples = _ptrAudioBuffer->GetPlayoutData((int8_t*)request_audio_data.get());
+
+            if (!resamper_render_) {
+              vhall::resample_info source_audio_info;
+              source_audio_info.format = vhall::AUDIO_FORMAT_16BIT;// wasApi always use float
+              source_audio_info.speakers = vhall::SPEAKERS_STEREO;
+              source_audio_info.samples_per_sec = _requestSampleRate;
+
+              vhall::resample_info sink_audio_info;
+              sink_audio_info.format = vhall::AUDIO_FORMAT_FLOAT;
+              sink_audio_info.speakers = vhall::SPEAKERS_STEREO;
+              sink_audio_info.samples_per_sec = _requestSampleRate;
+
+              resamper_render_.reset(new vhall::AudioSource(source_audio_info, sink_audio_info));
+            }
+
+            {
+              std::shared_ptr<uint8_t[]> tmpData(new (uint8_t[480 * 2 * sizeof(int16_t)]));
+              memcpy(tmpData.get(), request_audio_data.get(), 480 * 2 * sizeof(int16_t));
+
+              vhall::SourceAudioData data;
+              data.data[0] = tmpData;
+              data.frames = _requestSampleRate / 100;
+              data.speakers = vhall::SPEAKERS_STEREO;
+              data.samples_per_sec = _requestSampleRate;
+              data.format = vhall::AUDIO_FORMAT_16BIT;
+              data.timestamp = vhall::os_gettime_ns();
+              resamper_render_->InsertAudioData(data);
+
+              const vhall::SourceAudioData* processed_audio = resamper_render_->GetAudioData();
+              if (processed_audio) {
+                CopyMemory(pData, processed_audio->data[0].get(), processed_audio->size_);
+              }
+            }
           }
 
           DWORD dwFlags(0);
@@ -3344,7 +3389,7 @@ namespace webrtc {
     // It is used for compensation between native 44.1 and internal 44.0 and
     // for cases when the capture buffer is larger than 10ms.
     //
-    const UINT32 syncBufferSize = 2 * (bufferLength * _recAudioFrameSize);
+    const UINT32 syncBufferSize = 44100 * 2 * sizeof(float) * 10; /* 十秒数据量 */
     syncBuffer = new BYTE[syncBufferSize];
     if (syncBuffer == NULL) {
       return (DWORD)E_POINTER;
@@ -3420,7 +3465,7 @@ namespace webrtc {
         // Sanity check to ensure that essential states are not modified
         // during the unlocked period.
         if (_ptrCaptureClient == NULL || _ptrClientIn == NULL) {
-          _UnLock();
+          //_UnLock();
           RTC_LOG(LS_ERROR)
             << "input state has been modified during unlocked period";
           goto Exit;
@@ -3429,17 +3474,17 @@ namespace webrtc {
         UINT    captureSize = 0;
         hr = _ptrCaptureClient->GetNextPacketSize(&captureSize);
         if (FAILED(hr)) {
-          _UnLock();
+          //_UnLock();
           if (hr != AUDCLNT_E_DEVICE_INVALIDATED) {
             LOGE("[WASAPISource::GetCaptureData] capture->GetNextPacketSize failed: %lX", hr);
           }
           goto Exit;
         }
 
-        //if (!captureSize) {
-        //  _UnLock();
-        //  continue;
-        //}
+        if (!captureSize) {
+          _UnLock();
+          break;
+        }
 
         //  Find out how much capture data is available
         //
@@ -3469,125 +3514,101 @@ namespace webrtc {
           assert(framesAvailable != 0);
 
           if (pData) {
-            CopyMemory(&syncBuffer[syncBufIndex * _recAudioFrameSize], pData,
-              framesAvailable * _recAudioFrameSize);
+            if (!resamper_source_) {
+              vhall::resample_info source_audio_info;
+              source_audio_info.format = vhall::AUDIO_FORMAT_FLOAT;// wasApi always use float
+              source_audio_info.speakers = _speaker_layout;
+              source_audio_info.samples_per_sec = _recSampleRate;
 
-            if (f_pcm.is_open()) {
-              f_pcm.Write(pData, framesAvailable * _recChannels * sizeof(float));
+              vhall::resample_info sink_audio_info;
+              sink_audio_info.format = vhall::AUDIO_FORMAT_FLOAT;
+              sink_audio_info.speakers = vhall::SPEAKERS_STEREO;
+              sink_audio_info.samples_per_sec = 44100;
+
+              resamper_source_.reset(new vhall::AudioSource(source_audio_info, sink_audio_info));
             }
+
+            {
+              vhall::SourceAudioData data; 
+              
+              data.frames = framesAvailable;
+              data.speakers = _speaker_layout;
+              data.samples_per_sec = _recSampleRate;
+              data.format = vhall::AUDIO_FORMAT_FLOAT;
+              data.timestamp = vhall::os_gettime_ns();
+              {
+                bool planar = vhall::is_audio_planar(data.format);
+                size_t channels_ = vhall::get_audio_channels(data.speakers);
+                size_t planes_ = vhall::get_audio_planes(data.format, data.speakers); /* 交错格式音频plane都为1 */
+                size_t block_size_ = (planar ? 1 : channels_) *
+                  vhall::get_audio_bytes_per_channel(data.format); /* 通道数 x 采样点字节数per通道 */
+                size_t data_size = (size_t)data.frames * block_size_;
+                std::shared_ptr<uint8_t[]> data_tmp(new uint8_t[data_size]);
+                memcpy(data_tmp.get(), pData, data_size);
+                data.data[0] = data_tmp;
+              }
+
+              resamper_source_->InsertAudioData(data);
+
+              const vhall::SourceAudioData* processed_audio = resamper_source_->GetAudioData();
+              if (processed_audio) {
+                if (processed_audio->size_ != framesIn10Ms * 2 * sizeof(float)) {
+                  printf("111");
+                }
+
+                //ZeroMemory(&syncBuffer[syncBufIndex * 2 * sizeof(float)], framesIn10Ms * 2 * sizeof(float));
+                CopyMemory(&syncBuffer[syncBufIndex * 2 * sizeof(float)], processed_audio->data[0].get(), processed_audio->size_);
+
+                _readSamples += processed_audio->frames;
+                syncBufIndex += processed_audio->frames;
+
+                if (f_pcm.is_open()) {
+                  f_pcm.Write(processed_audio->data[0].get(), processed_audio->size_);
+                }
+              }
+              else { // not got processed_audio
+                _UnLock();
+                break;
+              }
+            }
+
+            //CopyMemory(&syncBuffer[syncBufIndex * _recAudioFrameSize], pData, framesAvailable * _recAudioFrameSize);
+
           }
           else {
-            ZeroMemory(&syncBuffer[syncBufIndex * _recAudioFrameSize],
-              framesAvailable * _recAudioFrameSize);
+            ZeroMemory(&syncBuffer[syncBufIndex * 2 * sizeof(float)], framesIn10Ms * 2 * sizeof(float));
+            _readSamples += framesIn10Ms;
+            syncBufIndex += framesIn10Ms;
           }
-          assert(syncBufferSize >= (syncBufIndex * _recAudioFrameSize) +
-            framesAvailable * _recAudioFrameSize);
+          assert(syncBufferSize >= (syncBufIndex * 2 * sizeof(float)) + framesIn10Ms * 2 * sizeof(float));
 
           // Release the capture buffer
           //
           hr = _ptrCaptureClient->ReleaseBuffer(framesAvailable);
           EXIT_ON_ERROR(hr);
 
-          _readSamples += framesAvailable;
-          syncBufIndex += framesAvailable;
+          
 
           QueryPerformanceCounter(&t1);
 
           // Get the current recording and playout delay.
           uint32_t sndCardRecDelay = (uint32_t)(
             ((((UINT64)t1.QuadPart * _perfCounterFactor) - recTime) / 10000) +
-            (10 * syncBufIndex) / _recBlockSize - 10);
+            (10 * syncBufIndex) / framesIn10Ms - 10);
           uint32_t sndCardPlayDelay = static_cast<uint32_t>(_sndCardPlayDelay);
 
-          while (syncBufIndex >= _recBlockSize) {
-            unsigned int totalSamples = _recChannels * _recBlockSize;
-            std::shared_ptr<float[]> ConvertData(new float[_recChannels *_recBlockSize]);
+          while (syncBufIndex >= framesIn10Ms) {
+            unsigned int totalSamples = dstCh * framesIn10Ms;
+            std::shared_ptr<float[]> ConvertData(new float[dstCh *framesIn10Ms]);
             std::shared_ptr<float[]> FinalData = nullptr;
             /* 浮点转换 */
             float *tempConvert = ConvertData.get();
 
             if (_ptrAudioBuffer) {
-              if (_recBitsPerSample == 8) {
-                char *tempSByte = (char*)syncBuffer;
+              float *tempShort = (float*)syncBuffer;
+              memcpy(tempConvert, tempShort, totalSamples * sizeof(float));
+              FinalData = ConvertData;
 
-                while (totalSamples--) {
-                  *(tempConvert++) = float(*(tempSByte++)) / 127.0f;
-                }
-              }
-              else if (_recBitsPerSample == 16) {
-                short *tempShort = (short*)syncBuffer;
-                while (totalSamples--) {
-                  *(tempConvert++) = float(*(tempShort++)) / 32767.0f;
-                }
-              }
-              else if (_recBitsPerSample == 24) {
-                BYTE *tempTriple = (BYTE*)syncBuffer;
-                TripleToLong valOut;
-                while (totalSamples--) {
-                  TripleToLong &valIn = (TripleToLong&)tempTriple;
-                  valOut.wVal = valIn.wVal;
-                  valOut.tripleVal = valIn.tripleVal;
-                  if (valOut.tripleVal > 0x7F)
-                    valOut.lastByte = 0xFF;
-
-                  *(tempConvert++) = float(double(valOut.val) / 8388607.0);
-                  tempTriple += 3;
-                }
-              }
-              else if (_recBitsPerSample == 32) {
-                float *tempShort = (float*)syncBuffer;
-                memcpy(tempConvert, tempShort, totalSamples * sizeof(float));
-              }
-
-              if (_recSampleRate != 44100 || 2 != _recChannels) {
-                FinalData.reset(new float[2 * 44100 / 100]);
-                totalSamples = _recChannels * _recBlockSize;
-                std::shared_ptr<short[]> dataSrc_short(new short[totalSamples]);
-                std::shared_ptr<short[]> dataDst_short(new short[2 * 44100 / 100]);
-                assert(NULL != dataSrc_short);
-                assert(NULL != dataDst_short);
-                memset(dataSrc_short.get(), totalSamples * sizeof(short), 0);
-                memset(dataDst_short.get(), 2 * 44100 / 100 * sizeof(short), 0);
-
-                if (dataSrc_short) { /* float类型数据转换为s16做重采样 */
-                  short *tempShort = (short*)dataSrc_short.get();
-                  float *temp = ConvertData.get();
-                  while (totalSamples--) {
-                    *(tempShort++) = vhall::AudioCaptureMix::FloatS16ToS16(vhall::AudioCaptureMix::FloatToFloatS16(*(temp++)));
-                  }
-                }
-
-                if (4 == _recChannels) { // QuadToStereo, |src_audio| and |dst_audio| point to the same buffer.
-                  QuadToStereo(dataSrc_short.get(), _recSampleRate / 100, dataSrc_short.get());
-                  mResampler.InitializeIfNeeded(_recSampleRate, 44100, 2); // Stereo data resampe
-                  mResampler.Resample(dataSrc_short.get(), 2 * _recBlockSize, dataDst_short.get(), 2 * 441);
-                }
-                else { // Stereo & mono
-                  mResampler.InitializeIfNeeded(_recSampleRate, 44100, _recChannels);
-                  mResampler.Resample(dataSrc_short.get(), _recChannels * _recBlockSize, dataDst_short.get(), _recChannels * 441);
-                }
-
-                /* 重采样完成后的数据拷贝至输出buffer: FinalData */
-                totalSamples = 2 * 441;
-                short *tempShort = (short*)dataDst_short.get();
-                float *tempConvert = FinalData.get();
-                if (1 == _recChannels) { /* 单声道复制为双声道 */
-                  totalSamples /= 2;
-                  while (totalSamples--) {
-                    *(tempConvert) = *(tempConvert + 1) = float(*(tempShort)) / 32767.0f;
-                    tempConvert += 2;
-                    tempShort++;
-                  }
-                }
-                else {
-                  while (totalSamples--) { /* 双声道直接转换精度 */
-                    *(tempConvert++) = float(*(tempShort++)) / 32767.0f;
-                  }
-                }
-              }
-              else {
-                FinalData = ConvertData;
-              }
               std::shared_ptr<vhall::AudioCaptureMix> mix = mMix;
               if (mix) {
                 /* 调节麦克风音量 */
@@ -3613,18 +3634,18 @@ namespace webrtc {
               // Sanity check to ensure that essential states are not modified
               // during the unlocked period
               if (_ptrCaptureClient == NULL || _ptrClientIn == NULL) {
-                _UnLock();
+                //_UnLock();
                 RTC_LOG(LS_ERROR) << "input state has been modified during" << " unlocked period";
                 goto Exit;
               }
             }
 
             // store remaining data which was not able to deliver as 10ms segment
-            MoveMemory(&syncBuffer[0], &syncBuffer[_recBlockSize * _recAudioFrameSize],
-              (syncBufIndex - _recBlockSize) * _recAudioFrameSize);
-            syncBufIndex -= _recBlockSize;
+            MoveMemory(&syncBuffer[0], &syncBuffer[framesIn10Ms * dstCh * sizeof(float)],
+              (syncBufIndex - framesIn10Ms) * dstCh * sizeof(float));
+            syncBufIndex -= framesIn10Ms;
             sndCardRecDelay -= 10;
-          }
+          } 
         }
         else {
           // If GetBuffer returns AUDCLNT_E_BUFFER_ERROR, the thread consuming the

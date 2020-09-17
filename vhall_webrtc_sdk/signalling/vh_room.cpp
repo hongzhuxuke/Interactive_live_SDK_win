@@ -688,7 +688,6 @@ void VHRoom::OnUnPublish(std::shared_ptr<VHStream> &stream, const VHEventCB & ca
   }
   lock.unlock();
   stream->mRoom.reset();
-  stream->mRoom = NULL;
   stream->mId = -1;
   stream->mStreamId = "";
 }

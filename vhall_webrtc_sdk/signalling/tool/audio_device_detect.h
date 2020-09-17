@@ -53,6 +53,32 @@ namespace vhall {
   const int kAdmMaxDeviceNameSize = 128;
   const int kAdmMaxFileNameSize = 512;
   const int kAdmMaxGuidSize = 128;
+
+  class ScopedCOMInitializer {
+  public:
+    // Enum value provided to initialize the thread as an MTA instead of STA.
+    enum SelectMTA { kMTA };
+
+    // Constructor for STA initialization.
+    ScopedCOMInitializer() { Initialize(COINIT_APARTMENTTHREADED); }
+
+    // Constructor for MTA initialization.
+    explicit ScopedCOMInitializer(SelectMTA mta) {
+      Initialize(COINIT_MULTITHREADED);
+    }
+
+    ~ScopedCOMInitializer() {
+      if (SUCCEEDED(hr_))
+        CoUninitialize();
+    }
+
+    bool succeeded() const { return SUCCEEDED(hr_); }
+  private:
+    void Initialize(COINIT init) { hr_ = CoInitializeEx(NULL, init); }
+    HRESULT hr_;
+    ScopedCOMInitializer(const ScopedCOMInitializer&);
+    void operator=(const ScopedCOMInitializer&);
+  };
 }
 
 namespace vhall {
@@ -102,5 +128,6 @@ namespace vhall {
     IMMDeviceCollection*                _ptrCaptureCollection;
     IMMDevice*                          _ptrDeviceOut;
     IMMDevice*                          _ptrDeviceIn;
+    std::shared_ptr<ScopedCOMInitializer> _comInit;
   };
 }

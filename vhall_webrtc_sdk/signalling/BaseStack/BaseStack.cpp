@@ -450,8 +450,8 @@ bool BaseStack::CreatePeerConnection() {
         if (this->wnd) {
           stream_renderer_.reset(new VideoRenderer(this->wnd, shared_from_this()));
         }
-        else if (this->receiver) {
-          stream_renderer_.reset(new VideoRenderer(this->receiver, shared_from_this()));
+        else if (this->receiver.lock()) {
+          stream_renderer_.reset(new VideoRenderer(this->receiver.lock(), shared_from_this()));
         }
         else {
           LOGE("render fail, wnd & receiver is empty");
@@ -960,8 +960,8 @@ void BaseStack::RenderView() {
         if (this->wnd) {
           stream_renderer_.reset(new VideoRenderer(this->wnd, shared_from_this()));
         }
-        else if (this->receiver) {
-          stream_renderer_.reset(new VideoRenderer(this->receiver, shared_from_this()));
+        else if (this->receiver.lock()) {
+          stream_renderer_.reset(new VideoRenderer(this->receiver.lock(), shared_from_this()));
         }
         else {
           LOGE("render fail, wnd & receiver is empty");
@@ -985,8 +985,8 @@ void BaseStack::RenderView() {
         if (this->wnd) {
           stream_renderer_.reset(new VideoRenderer(this->wnd, shared_from_this()));
         }
-        else if (this->receiver) {
-          stream_renderer_.reset(new VideoRenderer(this->receiver, shared_from_this()));
+        else if (this->receiver.lock()) {
+          stream_renderer_.reset(new VideoRenderer(this->receiver.lock(), shared_from_this()));
         }
         else {
           LOGE("render fail, wnd & receiver is empty");
@@ -1129,9 +1129,12 @@ void BaseStack::OnMessage(rtc::Message * msg) {
   case PROCESS_ANSWER:
     processAnswer();
     break;
-  case PLAY_STREAM:
+  case PLAY_STREAM: {
+    this->wnd = msgData->wnd;
+    this->receiver = msgData->receiver;
     RenderView();
-    break;
+    break; 
+  }
   case STOP_STREAM:
     stopStream();
     break;

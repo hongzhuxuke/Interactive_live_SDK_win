@@ -25,7 +25,7 @@ VideoRenderer::VideoRenderer(HWND &wnd, std::shared_ptr<BaseStack> p) {
 VideoRenderer::VideoRenderer(std::shared_ptr<VideoRenderReceiveInterface> rec, std::shared_ptr<BaseStack> p) {
   LOGI("Create VideoRenderer");
   ::InitializeCriticalSection(&buffer_lock_);
-  receiver = rec;
+  recv = rec;
   mPtrBaseStack = p;
   mVhStream = p->mVhStream;
 }
@@ -61,10 +61,11 @@ void VideoRenderer::OnFrame(const webrtc::VideoFrame& video_frame) {
       buffer = webrtc::I420Buffer::Rotate(*buffer, video_frame.rotation());
     }
     
-    ///* 发送数据 */
-    //if (receiver) {
-    //  // yuv
-    //  //receiver->ReceiveVideo(buffer->DataY(), buffer->width() * buffer->height() * 3 / 2, buffer->width(), buffer->height());
+    /* 发送数据 */
+    std::shared_ptr<VideoRenderReceiveInterface> receiver = recv.lock();
+    if (receiver) {
+      // yuv
+      //receiver->ReceiveVideo(buffer->DataY(), buffer->width() * buffer->height() * 3 / 2, buffer->width(), buffer->height());
 
     //  // rgb
     //  std::shared_ptr<unsigned char[]> rgbDataBuffer(new unsigned char[buffer->width() * buffer->height() * 4]);
@@ -78,18 +79,18 @@ void VideoRenderer::OnFrame(const webrtc::VideoFrame& video_frame) {
     //  receiver->ReceiveVideo(rgbDataBuffer.get(), buffer->width() * buffer->height() * 4, buffer->width(), buffer->height());
     //}
 
-     /* 发送数据 */
-    if (receiver) {
-       std::shared_ptr<unsigned char[]> rgbDataBuffer(new unsigned char[buffer->width() * buffer->height() * 3]);
-       libyuv::I420ToRGB24(
-          buffer->DataY(), buffer->StrideY(),
-          buffer->DataU(), buffer->StrideU(),
-          buffer->DataV(), buffer->StrideV(),
-          rgbDataBuffer.get(),
-          buffer->width() * 3,
-          buffer->width(), buffer->height());
-       receiver->ReceiveVideo(rgbDataBuffer.get(), buffer->width() * buffer->height() * 3, buffer->width(), buffer->height());
-    }
+            /* 发送数据 */
+       if (receiver) {
+          std::shared_ptr<unsigned char[]> rgbDataBuffer(new unsigned char[buffer->width() * buffer->height() * 3]);
+          libyuv::I420ToRGB24(
+             buffer->DataY(), buffer->StrideY(),
+             buffer->DataU(), buffer->StrideU(),
+             buffer->DataV(), buffer->StrideV(),
+             rgbDataBuffer.get(),
+             buffer->width() * 3,
+             buffer->width(), buffer->height());
+          receiver->ReceiveVideo(rgbDataBuffer.get(), buffer->width() * buffer->height() * 3, buffer->width(), buffer->height());
+       }
 
     /* 渲染 */
     if (wnd_) {
