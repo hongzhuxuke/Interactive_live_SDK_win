@@ -247,20 +247,6 @@ bool VHTools::IsSupported(std::shared_ptr<VideoDevProperty>& dev, VideoProfileIn
   return false;
 }
 
-bool VHTools::IsSupported(std::shared_ptr<AudioDevProperty>& dev) {
-  if (1 != dev->mFormat.nChannels && 2 != dev->mFormat.nChannels) {
-    return false;
-  }
-  // 48000, 44100, 16000, 96000, 32000, 8000
-  bool result = dev->mFormat.nSamplesPerSec == 48000 ||\
-                dev->mFormat.nSamplesPerSec == 44100 ||\
-                dev->mFormat.nSamplesPerSec == 16000 ||\
-                dev->mFormat.nSamplesPerSec == 96000 || \
-                dev->mFormat.nSamplesPerSec == 32000 ||\
-                dev->mFormat.nSamplesPerSec == 8000;
-  return result;
-}
-
 void VHTools::UpLogVideoDevice(const std::vector<std::shared_ptr<VideoDevProperty>>& cameraList) {
   int devNum = cameraList.size();
   if (cameraList.empty()) {

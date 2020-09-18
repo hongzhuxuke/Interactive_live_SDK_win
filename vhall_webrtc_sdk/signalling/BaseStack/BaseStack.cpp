@@ -1473,9 +1473,7 @@ bool BaseStack::SetAudioOutDevice(uint32_t index) {
   /* 通过设备列表索引获选所选设备 */
   if (audioOuts.size() > index) {
     audioDevice = audioOuts.at(index);
-    if (devTool->IsSupported(audioDevice)) {
-      devOutOk = true;
-    }
+    devOutOk = true;
   }
   if (!audioDevice) {
     LOGE("cannot find deivce index");
@@ -1488,7 +1486,6 @@ bool BaseStack::SetAudioOutDevice(uint32_t index) {
     return false;
   }
 
-  LOGD("baselock7");
   std::unique_lock<std::mutex> lock(baseAdm->mMtx);
   baseAdm->AudioOutDevID = index;
   baseAdm->mAudioOutProp = audioDevice;
@@ -1502,7 +1499,6 @@ bool BaseStack::SetAudioOutDevice(uint32_t index) {
     LOGW("AudioDevice not initialized");
   }
   lock.unlock();
-  LOGD("unbaselock7");
 
   UpLogSetSpeakerDevice(audioDevice, "sucess", "SetAudioOutDevice done");
   LOGD("done");

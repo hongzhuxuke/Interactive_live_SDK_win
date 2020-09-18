@@ -620,6 +620,7 @@ void VHLogReport::upLoadSdkVersionInfo() {
   dictdata["app_id"] = Json::Value(app_id);
   dictdata["dt"] = Json::Value(device_type);
   dictdata["os"] = Json::Value(osv);
+  dictdata["ua"] = Json::Value(osv);
   //dictdata["cpu"] = Json::Value("none");
   //dictdata["memory"] = Json::Value("none"); // todo
   dictdata["_m"] = Json::Value("sdk version info");

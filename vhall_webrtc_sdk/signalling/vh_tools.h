@@ -49,7 +49,6 @@ public:
   const std::vector<std::shared_ptr<AudioDevProperty>>& AudioPlayoutDevicesList();
   /* check dev supported */
   bool IsSupported(std::shared_ptr<VideoDevProperty>& dev, VideoProfileIndex index);
-  bool IsSupported(std::shared_ptr<AudioDevProperty>& dev);
   static std::unordered_map<VideoProfileIndex, bool> GetSupportIndex(const std::vector<std::shared_ptr<VideoFormat>> vecVideoPro);
 private:
   void UpLogVideoDevice(const std::vector<std::shared_ptr<VideoDevProperty>>& cameraList);

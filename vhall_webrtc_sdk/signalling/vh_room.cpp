@@ -21,8 +21,8 @@
 // fix webrtc bug
 #include "rtc_base/synchronization/rw_lock_win.h"
 
-const char vhall::VHRoom::vhallSDKVersion[] = "2.4.6.1";
-const char vhall::VHRoom::vhallSDKReleaseData[] = "20200813";
+const char vhall::VHRoom::vhallSDKVersion[] = "2.4.7";
+const char vhall::VHRoom::vhallSDKReleaseData[] = "20200915";
 
 typedef enum {
   MSG_ROOM_CONNECT,
