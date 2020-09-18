@@ -818,6 +818,8 @@ int VHStream::SetBestCaptureFormat() {
   videoOpt.DshowFormat = bestMax;
   /* 根据采集属性、请求属性计算推流属性 */
   videoOpt.publishFormat.maxFPS = bestMax->maxFPS > maxFrameRate ? maxFrameRate : bestMax->maxFPS;
+  videoOpt.publishFormat.width = bestMax->width;
+  videoOpt.publishFormat.height = bestMax->height;
 
   if (bestMax->width * bestMax->height > videoOpt.maxWidth * videoOpt.maxHeight) { /* 采样分辨率大于配置分辨率 */
     if (bestMax->width >= bestMax->height) {
@@ -830,10 +832,10 @@ int VHStream::SetBestCaptureFormat() {
       float scaleRatio = 1.0f * videoOpt.maxHeight / bestMax->height;
       videoOpt.publishFormat.width = scaleRatio * bestMax->width;
     }
-
-    videoOpt.publishFormat.width = (videoOpt.publishFormat.width + 3) / 4 * 4;
-    videoOpt.publishFormat.height = (videoOpt.publishFormat.height + 3) / 4 * 4;
   }
+
+  videoOpt.publishFormat.width = (videoOpt.publishFormat.width + 3) / 4 * 4;
+  videoOpt.publishFormat.height = (videoOpt.publishFormat.height + 3) / 4 * 4;
 
   /* 根据实际推流分辨率、帧率配置码率 */
   int32_t targetPixelCount = videoOpt.publishFormat.width * videoOpt.publishFormat.height;
